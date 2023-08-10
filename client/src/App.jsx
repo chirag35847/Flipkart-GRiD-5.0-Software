@@ -13,8 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
-import UserDashboard from "./components/UserDashboard";
 import Authscreen from "./components/Authscreen";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -52,7 +52,7 @@ function App() {
             </>
           }
         />
-        <Route  exact path="/dashboard" element={<UserDashboard />} />
+        <Route  exact path="/dashboard" element={<Dashboard />} />
         <Route  exact path="/auth" element={<Authscreen />} />
         
       </Routes>
