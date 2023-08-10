@@ -10,7 +10,7 @@ const Home = () => {
         <span className="txt-light ">&nbsp;About Us</span>
       </div>
      
-      <div className="z-10 mb-40 lg:mt-10 mobile:mt-10">
+      <div className="z-10 mb-10 lg:mt-10 mobile:mt-10">
         <div className="txt-ternary-light capitalize md:w-[60%] mobile:w-[85%] mx-auto lg:text-[20px] mt-3 md:flex-row flex mobile:flex-col mobile:items-center justify-center">
           <div>
             We are a fintech-health tech company incorporated in 2022. At

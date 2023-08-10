@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
 }
 /*------------------------------------------------------------CSS VARIABLES FOR DARK MODE-------------------------------------------------------*/
@@ -12,7 +12,7 @@ body {
   --primary-color: #070707;
   --ternary-color-2: #a4a3a3;
   --ternary-color-1: #747474;
-  --main-color: #4D77FF;
+  --main-color: #4d77ff;
   --opacity-secondary: 0.3;
   --opacity-primary: 0.5;
 
@@ -62,12 +62,10 @@ body {
 }
 
 .nav-dark {
-  backdrop-filter: var(--back-blur) 
-  var(--back-brightness);
+  backdrop-filter: var(--back-blur) var(--back-brightness);
 }
 .nav-light {
-  backdrop-filter: var(--back-blur)
-  var(--back-brightness);
+  backdrop-filter: var(--back-blur) var(--back-brightness);
 }
 /*-----------------------------------------------------DARK THEME--------------------------------------------------*/
 
@@ -117,12 +115,10 @@ body {
 /*---------------------------------------------------TYPEWRITER EFFECT-------------------------------------------------------*/
 .type {
   position: relative;
-
 }
 
 .type::before,
 .type::after {
-
   content: "";
   position: absolute;
   top: 0;
@@ -175,7 +171,6 @@ body {
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: var(--primary-color);
-
 }
 
 ::-webkit-scrollbar-thumb {
@@ -192,15 +187,15 @@ body {
 /*-----------------------------------------------------------ACCORDION-----------------------------------------------------------------*/
 
 .transition {
-  transition: all 0.5s cubic-bezier(0,1,0,1);
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }
 .content {
   color: var(--secondary-color);
   max-height: 0;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0,0.5,0,1);
+  transition: all 0.5s cubic-bezier(0, 0.5, 0, 1);
   padding: 0px;
-  font-size:0px;
+  font-size: 0px;
   z-index: 20;
 }
 .show {
@@ -208,7 +203,7 @@ body {
   padding: 20px;
   height: auto;
   max-height: 99999px;
-  transition: all 0.5s cubic-bezier(1,0,0.5,0);
+  transition: all 0.5s cubic-bezier(1, 0, 0.5, 0);
   font-size: 25px;
 }
 @media screen and (max-width: 600px) {
@@ -217,12 +212,12 @@ body {
   }
 }
 #blueborder {
-  border: 1px solid #4D77FF;
+  border: 1px solid #4d77ff;
   border-bottom: 0px;
   border-radius: 10px 10px 0px 0px;
 }
 #blueborder2 {
-  border: 1px solid #4D77FF;
+  border: 1px solid #4d77ff;
   border-bottom: 0px;
 }
 
@@ -253,16 +248,16 @@ body {
   width: 5em;
   height: 5em;
   border-radius: 50%;
-  border-top: 4px dashed #4D77FF;
+  border-top: 4px dashed #4d77ff;
   animation: round 700ms linear infinite;
 }
 
 @keyframes round {
   from {
-      rotate: 0deg;
+    rotate: 0deg;
   }
   to {
-      rotate: 360deg;
+    rotate: 360deg;
   }
 }
 
@@ -276,17 +271,80 @@ body {
   border: 1px #c2c2c2 solid;
   font-size: 28px;
   font-weight: 500;
-  transition: filter  300ms;
+  transition: filter 300ms;
 }
 .sol-hover:hover {
   filter: brightness(1);
 }
 
 @media screen and (max-width: 600px) {
-  .sol-hover{
+  .sol-hover {
     padding: 10px;
     margin: 10px;
     font-size: 20px;
   }
 }
-/* rounded-2xl border-2 border-[#C2C2C2] text-[28px] font-[500]*/
+/* Road Map  */
+.road-map {
+  background: linear-gradient(#15306c, #14142f);
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+p,
+a,
+ul li {
+  font-family: "Dongle", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+.main-title {
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+}
+.slider {
+  margin: 80px 0;
+  height: 200px;
+  display: block;
+  perspective: 1000px;
+  position: relative;
+  width: 100vw;
+}
+
+.slide {
+  margin-left: -50px;
+  display: inline-block;
+  width: 400px;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: 0.4s all;
+  border-radius: 20px;
+  color: white;
+  backdrop-filter: blur(10px);
+  border: double 1px transparent;
+  border-radius: 30px;
+  background-image: linear-gradient(#0200546b, #0000006b),
+    linear-gradient(to right, #661dee73, #009dff75);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.slide-container {
+  padding: 20px 30px;
+}
+
+.slide-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.slide-container ul li {
+  padding: 0;
+}
+
+.slide.active {
+  z-index: 4;
+}
