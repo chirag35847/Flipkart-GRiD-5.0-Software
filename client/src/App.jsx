@@ -35,6 +35,7 @@ function App() {
       <About/>
       {/* <Faq/> */}
       <Solutions/>
+      <RoadMap/>
       <Footer/>
       {/* <BackGradients/>
       <div id="test-space" className="h-[5000px]"></div> */}

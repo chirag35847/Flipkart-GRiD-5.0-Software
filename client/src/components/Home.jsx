@@ -38,7 +38,7 @@ const Home = () => {
           <h1>Seamless Ecommerce Evolution :</h1>
           <TextTransition
             delay={10}
-            className="mt-5"
+            className="mt-2"
             springConfig={presets.wobbly}
           >
             <span

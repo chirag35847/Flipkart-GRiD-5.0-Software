@@ -285,66 +285,119 @@ body {
   }
 }
 /* Road Map  */
-.road-map {
-  background: linear-gradient(#15306c, #14142f);
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+.timeline {
+  background: var(--primary-color);
+  margin: 20px auto;
+  padding: 20px;
 }
-p,
-a,
-ul li {
-  font-family: "Dongle", sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-}
-.main-title {
-  width: 100%;
-  text-align: center;
-  color: #ffffff;
-}
-.slider {
-  margin: 80px 0;
-  height: 200px;
-  display: block;
-  perspective: 1000px;
+
+/* Card container */
+.card {
   position: relative;
-  width: 100vw;
+  max-width: 400px;
+  background-color: #070707 !important;
 }
 
-.slide {
-  margin-left: -50px;
-  display: inline-block;
-  width: 400px;
+/* setting padding based on even or odd */
+.card:nth-child(odd) {
+  padding: 30px 0 30px 30px;
+}
+.card:nth-child(even) {
+  padding: 30px 30px 30px 0;
+}
+/* Global ::before */
+.card::before {
+  content: "";
   position: absolute;
-  backface-visibility: hidden;
-  transition: 0.4s all;
-  border-radius: 20px;
+  width: 50%;
+  border: solid orangered;
+}
+
+/* Setting the border of top, bottom, left */
+.card:nth-child(odd)::before {
+  left: 0px;
+  top: -4.5px;
+  bottom: -4.5px;
+  border-width: 5px 0 5px 5px;
+  border-radius: 50px 0 0 50px;
+}
+
+/* Setting the top and bottom to "-5px" because earlier it was out of a pixel in mobile devices */
+@media only screen and (max-width: 400px) {
+  .card:nth-child(odd)::before {
+    top: -5px;
+    bottom: -5px;
+  }
+}
+
+/* Setting the border of top, bottom, right */
+.card:nth-child(even)::before {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 5px 5px 5px 0;
+  border-radius: 0 50px 50px 0;
+}
+
+/* Removing the border if it is the first card */
+.card:first-child::before {
+  border-top: 0;
+  border-top-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's odd */
+.card:last-child:nth-child(odd)::before {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's even */
+.card:last-child:nth-child(even)::before {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Information about the timeline */
+.info {
+  display: flex;
+  flex-direction: column;
+  background: #333;
+  color: black;
   color: white;
-  backdrop-filter: blur(10px);
-  border: double 1px transparent;
-  border-radius: 30px;
-  background-image: linear-gradient(#0200546b, #0000006b),
-    linear-gradient(to right, #661dee73, #009dff75);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Poppins", sans-serif !important;
 }
 
-.slide-container {
-  padding: 20px 30px;
+/* Title of the card */
+.title {
+  color: orangered;
+  position: relative;
+
 }
 
-.slide-container ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.slide-container ul li {
-  padding: 0;
+/* Timeline dot  */
+.title::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 999px;
+  border: 3px solid orangered;
 }
 
-.slide.active {
-  z-index: 4;
+/* text right if the card is even  */
+.card:nth-child(even) > .info > .title {
+  text-align: right;
+}
+
+/* setting dot to the left if the card is odd */
+.card:nth-child(odd) > .info > .title::before {
+  left: -45px;
+}
+
+/* setting dot to the right if the card is odd */
+.card:nth-child(even) > .info > .title::before {
+  right: -45px;
 }
