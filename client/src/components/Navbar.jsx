@@ -27,12 +27,10 @@ const NavBar = () => {
           <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
             <a href="#faq" style={{fontSize:15}}>FAQs</a>
           </li>
-          <li className="list-none inline-block mx-4 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
-            <a href="#userflow">User Flow</a>
+          <li className="list-none inline-block mx-2 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
+            <a href="#userflow" style={{fontSize:15}}>User Flow</a>
           </li>
-          <li className="list-none inline-block mx-4 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
-            <a href="/marketplace">MarketPlace</a>
-          </li>
+         
 
         </ul>
         <button
