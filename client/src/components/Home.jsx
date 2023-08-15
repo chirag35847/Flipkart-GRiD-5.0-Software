@@ -55,7 +55,7 @@ const Home = () => {
         </div>
 
         <button className="text-white back-main px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-blue-400 active:bg-blue-500 transition-all">
-          <Link href="">
+          <Link to="/auth">
             Let's Connect
           </Link>
         </button>

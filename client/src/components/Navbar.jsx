@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { Link } from "react-router-dom"; 
 
 const NavBar = () => {
-  const [toggle,setToggle]=useState(false);
+  const [toggle, setToggle] = useState(false);
 
   return (
     <>
@@ -27,10 +27,17 @@ const NavBar = () => {
           <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
             <a href="#faq" style={{fontSize:15}}>FAQs</a>
           </li>
+          <li className="list-none inline-block mx-4 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
+            <a href="#userflow">User Flow</a>
+          </li>
+          <li className="list-none inline-block mx-4 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
+            <a href="/marketplace">MarketPlace</a>
+          </li>
+
         </ul>
         <button
           type="button"
-          onClick={()=>setToggle(!toggle)}
+          onClick={() => setToggle(!toggle)}
           className="justify-end mt-1 items-center sm:hidden w-8"
         >
           <img id="menu" alt="hambuger menu" src="./assets/menu-dark.png" />
