@@ -15,6 +15,7 @@ import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 import Dashboard from "./components/Dashboard";
+import MarketPlace from "./components/MarketPlace";
 
 function App() {
   return (
@@ -48,12 +49,14 @@ function App() {
                 <Footer />
                 <BackGradients />
                 {/* <div id="test-space" className="h-[5000px]"></div> */}
+                
               </div>
             </>
           }
         />
         <Route  exact path="/dashboard" element={<Dashboard />} />
         <Route  exact path="/auth" element={<Authscreen />} />
+        <Route  exact path="/marketplace" element={<MarketPlace />} />
         
       </Routes>
     </>

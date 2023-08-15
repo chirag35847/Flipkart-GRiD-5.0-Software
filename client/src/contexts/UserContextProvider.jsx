@@ -18,6 +18,7 @@ export const UserContextProvider = ({ children }) => {
   const signer = useEthersSigner(activeChain);
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
+  const [products, setProducts] = useState([]); // [1
   const getContractInstance = async (contractAddress, contractAbi) => {
     try {
       let contractInstance = new ethers.Contract(
@@ -39,8 +40,8 @@ export const UserContextProvider = ({ children }) => {
       });
       let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
       let balance = await nftInstance.balanceOf(walletAddress);
-      balance= +balance.toString();
-      if(balance==1){
+      balance = +balance.toString();
+      if (balance == 1) {
         toast.update(id, {
           render: "Already Minted !",
           type: "info",
@@ -81,7 +82,7 @@ export const UserContextProvider = ({ children }) => {
     try {
       let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
       let balance = await nftInstance.balanceOf(pasteAddress);
-      balance= +balance.toString();
+      balance = +balance.toString();
       let isVerified = balance == 1 ? true : false;
       setVerified(isVerified);
       if (isVerified) {
@@ -123,11 +124,17 @@ export const UserContextProvider = ({ children }) => {
   };
   useEffect(() => {
     if (!signer) return;
+    (async()=>{
+      let res = await fetch('https://fakestoreapi.com/products');
+      let data = await res.json();
+      console.log(data);
+      setProducts(data);
+    })();
   }, [signer, address]);
 
   return (
     <UserDataContext.Provider
-      value={{ checkVerification, verified, mintNFT, confetti }}
+      value={{ checkVerification, verified, mintNFT, confetti,products }}
     >
       {children}
     </UserDataContext.Provider>
