@@ -16,6 +16,7 @@ import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import MarketPlace from "./components/MarketPlace";
+import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
         <Route  exact path="/dashboard" element={<Dashboard />} />
         <Route  exact path="/auth" element={<Authscreen />} />
         <Route  exact path="/marketplace" element={<MarketPlace />} />
-        
+        <Route  exact path="/brandsDashBoard" element={<BrandsDashboard />} />
         
       </Routes>
     </>
