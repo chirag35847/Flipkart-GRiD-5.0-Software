@@ -15,7 +15,7 @@ import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 import Dashboard from "./components/Dashboard";
-import Marketplace from "./components/Marketplace";
+
 
 function App() {
   return (
@@ -55,7 +55,7 @@ function App() {
         />
         <Route  exact path="/dashboard" element={<Dashboard />} />
         <Route  exact path="/auth" element={<Authscreen />} />
-        <Route  exact path="/market" element={<Marketplace/>} />
+        
         
       </Routes>
     </>
