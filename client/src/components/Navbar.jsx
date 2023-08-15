@@ -22,14 +22,12 @@ const NavBar = () => {
             <a href="#about" style={{fontSize:15}}>About Us</a>
           </li>
           <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
-          <Link to="/market" style={{ fontSize: 15 }}>Marketplace</Link>
+          <Link to="/marketplace" style={{ fontSize: 15 }}>Marketplace</Link>
           </li>
           <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
             <a href="#faq" style={{fontSize:15}}>FAQs</a>
           </li>
-          <li className="list-none inline-block mx-2 hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
-            <a href="#userflow" style={{fontSize:15}}>User Flow</a>
-          </li>
+         
          
 
         </ul>

@@ -14,7 +14,7 @@ import { ToastContainer } from "react-toastify";
 import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import MarketPlace from "./components/MarketPlace";
 
 
