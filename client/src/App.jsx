@@ -17,6 +17,7 @@ import Authscreen from "./components/Authscreen";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import MarketPlace from "./components/MarketPlace";
 import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
+import Profile from "./components/UserProfile/Profile";
 
 
 function App() {
@@ -59,7 +60,7 @@ function App() {
         <Route  exact path="/auth" element={<Authscreen />} />
         <Route  exact path="/marketplace" element={<MarketPlace />} />
         <Route  exact path="/brandsDashBoard" element={<BrandsDashboard />} />
-        
+        <Route  exact path="/userProfile" element={<Profile />} />
       </Routes>
     </>
   );
