@@ -10,7 +10,7 @@ const Faq = () => {
   };
 
   return (
-    <div className='flex justify-center flex-col items-center' id="faq">
+    <div className='flex justify-center flex-col items-center mb-4' id="faq">
         <div className="z-10 font-bold txt-main mt-[10rem] mobile:text-[40px] lg:text-[64px] flex mobile:flex-col mobile:items-center lg:flex-row">
           Frequently Asked
           <span className="txt-light">&nbsp;Questions</span>
@@ -18,7 +18,7 @@ const Faq = () => {
       <div className='flex justify-center mt-20 h-[60%] w-[90vw]'>
         <div className='lg:w-[60vw] mobile:w-[100vw]'>
           {data.map((item, i) => (
-            <div className='mobile:px-4 lg:px-8' key={i}>
+            <div className='mobile:px-4 lg:px-8 mt-4' key={i}>
               <div
                 id='blueborder'
                 onClick={() => toggle(i)}

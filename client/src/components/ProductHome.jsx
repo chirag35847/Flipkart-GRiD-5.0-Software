@@ -9,7 +9,7 @@ const ProductHome = () => {
       <section>
         <NavBar />
 
-        <div className="home_page ">
+        <div className="home_page flex justify-center items-center">
           <div className="home_img ">
             <img src="https://i.postimg.cc/t403yfn9/home2.jpg" alt="img " />
           </div>
