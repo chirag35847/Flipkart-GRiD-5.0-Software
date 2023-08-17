@@ -122,10 +122,34 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   };
+  async function registerBrand(
+    brandName,
+    brandSymbol,
+    tokenPercentage,
+    basePrice
+  ) {
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
+    try {
+      const transaction = await contract.registerBrand(
+        brandName,
+        brandSymbol,
+        tokenPercentage,
+        basePrice
+      );
+      await transaction.wait(2);
+      console.log("Brand registered successfully!");
+    } catch (error) {
+      console.error("Error registering brand:", error);
+    }
+  }
   useEffect(() => {
     if (!signer) return;
-    (async()=>{
-      let res = await fetch('https://fakestoreapi.com/products');
+    (async () => {
+      let res = await fetch("https://fakestoreapi.com/products");
       let data = await res.json();
       console.log(data);
       setProducts(data);
@@ -134,7 +158,7 @@ export const UserContextProvider = ({ children }) => {
 
   return (
     <UserDataContext.Provider
-      value={{ checkVerification, verified, mintNFT, confetti,products }}
+      value={{ checkVerification, verified, mintNFT, confetti, products }}
     >
       {children}
     </UserDataContext.Provider>
