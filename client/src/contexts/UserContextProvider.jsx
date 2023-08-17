@@ -27,6 +27,7 @@ export const UserContextProvider = ({ children }) => {
   const [confetti, setConfetti] = useState(false);
   const [products, setProducts] = useState([]); // [1
   const [user,setUser]=useState({});
+  const [brandFullDetails,setBrandFullDetails]=useState({});
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -301,6 +302,7 @@ export const UserContextProvider = ({ children }) => {
         brandOwner: brand["brandOwner"],
         basePrice: +brand["basePrice"].toString(),
       };
+      
     } catch (error) {
       console.log(error);
     }
@@ -440,6 +442,8 @@ export const UserContextProvider = ({ children }) => {
         confetti,
         products,
         registerUserUsingNFTVerification,
+        changePercentage,
+        changeBasePrice
       }}
     >
       {children}

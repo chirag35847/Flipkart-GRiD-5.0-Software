@@ -10,15 +10,17 @@ const Nft = () => {
         {
             tab=='first'?
             <div className='w-full'>
-                <ScrollArea h={550}>
+                <ScrollArea h={'55vh'}>
                     <SimpleGrid 
-                        cols={3}
-                        spacing={'lg'}
+                        cols={5}
+                        spacing={'sm'}
                         breakpoints={[
-                            {maxWidth:'200px',cols:2,spacing:'md'},
-                            {maxWidth:'640px',cols:3,spacing:'md'},
-                            {maxWidth:'768px',cols:3,spacing:'xl'},
-                            {maxWidth:'1024px',cols:4,spacing:'xl'},
+                            {maxWidth:'200px',cols:2,spacing:'sm'},
+                            {maxWidth:'640px',cols:3,spacing:'sm'},
+                            {maxWidth:'768px',cols:3,spacing:'sm'},
+                            {maxWidth:'1024px',cols:4,spacing:'sm'},
+                            {maxWidth:'1280px',cols:4,spacing:'sm'},
+                            {maxWidth:'1536px',cols:4,spacing:'sm'},
                         ]}
                     >
                         <NFTCard/>

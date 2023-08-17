@@ -14,17 +14,18 @@ import { ToastContainer } from "react-toastify";
 import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
-import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Dashboard from "./components/Dash2/Dashboard.jsx";
 import MarketPlace from "./components/MarketPlace";
+import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
+import Profile from "./components/UserProfile/Profile";
 
 import ProductDetails from "./components/ProductDetails";
 import Checkout from "./components/CheckoutModal";
 import CheckoutModal from "./components/CheckoutModal";
 import Payment from "./components/Payment";
-
+import AdminDashboard from "./AdminDashboard";
 
 import RegisterUser from "./components/RegisterUser";
-
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
         theme="light"
       />
       <Routes>
-        <Route  exact path="/auth" element={<Authscreen />} />
+        <Route exact path="/auth" element={<Authscreen />} />
         <Route
           path="/"
           exact
@@ -56,26 +57,22 @@ function App() {
                 <About />
                 <Solutions />
                 <RoadMap />
-                <Faq/>
+                <Faq />
                 <Footer />
                 <BackGradients />
               </div>
             </>
           }
         />
-        <Route  exact path="/dashboard" element={<Dashboard />} />
-        <Route  exact path="/marketplace" element={<MarketPlace />} />
-
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/marketplace" element={<MarketPlace />} />
+        <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
+        <Route exact path="/userProfile" element={<Profile />} />
+        <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
-        <Route  exact path="/checkout" element={<CheckoutModal/>} />
-        <Route  exact path="/payment" element={<Payment/>} />
-
-
-        
-        
-
-        <Route  exact path="/register-user" element={< RegisterUser />} />
-
+        <Route exact path="/checkout" element={<CheckoutModal />} />
+        <Route exact path="/payment" element={<Payment />} />
+        <Route exact path="/register-user" element={<RegisterUser />} />
       </Routes>
     </>
   );
