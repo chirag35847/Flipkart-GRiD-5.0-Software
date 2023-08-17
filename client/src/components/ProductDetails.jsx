@@ -135,7 +135,7 @@ const ProductDetails = () => {
                 onClick={() => setIsModalOpen(true)}
                 className="flex ml-auto bg-blue-400 hover:bg-blue-700 text-white font-bold border-0 py-2 px-6 focus:outline-none  rounded"
               >
-                Button
+                Buy Now
               </button>
             </div>
           </div>
