@@ -78,7 +78,7 @@ const Authscreen = () => {
 
               {!verified ? (
                 <>
-                  <span class="flex items-center mt-2 font-medium tracking-wide text-red-400 text-xs  ml-1">
+                  <span className="flex items-center mt-2 font-medium tracking-wide text-red-400 text-xs  ml-1">
                     You are Not an NFT Holder !
                   </span>
                   <button
@@ -104,7 +104,7 @@ const Authscreen = () => {
               )}
             </>
           ) : (
-            <span class="flex items-center mt-2 font-medium tracking-wide text-red-400 text-xs  ml-1">
+            <span className="flex items-center mt-2 font-medium tracking-wide text-red-400 text-xs  ml-1">
               Connect Your Wallet !
             </span>
           )}

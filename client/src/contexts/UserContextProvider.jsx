@@ -123,14 +123,14 @@ export const UserContextProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    if (!signer) return;
+    // if (!signer) return;
     (async()=>{
       let res = await fetch('https://fakestoreapi.com/products');
       let data = await res.json();
       console.log(data);
       setProducts(data);
     })();
-  }, [signer, address]);
+  }, []);
 
   return (
     <UserDataContext.Provider
