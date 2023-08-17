@@ -26,6 +26,9 @@ export const UserContextProvider = ({ children }) => {
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const [products, setProducts] = useState([]); // [1
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
   const getContractInstance = async (contractAddress, contractAbi) => {
     try {
       let contractInstance = new ethers.Contract(
@@ -39,47 +42,34 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
-  const mintNFT = async (walletAddress) => {
+  const registerUserUsingNFTVerification = async (walletAddress) => {
+    let id = toast.loading("⏳ Minting NFT for You ...", {
+      theme: "dark",
+      autoClose: true,
+    });
     try {
-      let id = toast.loading("⏳ Minting...", {
+      let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
+      toast.update(id, {
+        render: "Making token URI ...!",
+        type: "success",
+        isLoading: true,
         theme: "dark",
         autoClose: true,
       });
-      let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
-      let balance = await nftInstance.balanceOf(walletAddress);
-      balance = +balance.toString();
-      if (balance == 1) {
-        toast.update(id, {
-          render: "Already Minted !",
-          type: "info",
-          isLoading: false,
-          theme: "dark",
-          icon: " ✅ ",
-          autoClose: true,
-        });
-        return;
-      }
       let tokenURI =
         "https://gateway.pinata.cloud/ipfs/QmUFA3vw118FeGW61xfEU7mcZEt9sm2BMfqchERbq6BKCG";
       let tx = await nftInstance.mintNFT(walletAddress, tokenURI);
       await tx.wait(1);
+
+      await registerUser();
       setConfetti(true);
       setTimeout(() => {
-        if (confetti) {
-          setConfetti(false);
-        }
+        setConfetti(false);
       }, 5000);
-      toast.update(id, {
-        render: "Minted Successfully  !",
-        type: "success",
-        isLoading: false,
-        theme: "dark",
-        icon: " ✅ ",
-        autoClose: true,
-      });
+      await sleep(5000);
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
-      toast.error("Error in Minting !");
     }
   };
   const checkVerification = async (pasteAddress) => {
@@ -88,34 +78,42 @@ export const UserContextProvider = ({ children }) => {
     });
     try {
       let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+
       let balance = await nftInstance.balanceOf(pasteAddress);
       balance = +balance.toString();
+
+      let isExist = await contract.checkIsUser(pasteAddress);
       let isVerified = balance == 1 ? true : false;
-      setVerified(isVerified);
-      if (isVerified) {
-        setConfetti(true);
-        setTimeout(() => {
-          if (confetti) {
-            setConfetti(false);
-          }
-        }, 5000);
+      setVerified(isVerified && isExist);
+      if (isVerified && isExist) {
         toast.update(id, {
-          render: "Verified !",
-          type: "info",
+          render: "Valid User !",
+          type: "success",
           isLoading: false,
           theme: "dark",
           icon: " ✅ ",
           autoClose: true,
         });
+        setConfetti(true);
+        setTimeout(() => {
+          setConfetti(false);
+        }, 5000);
+
+        await sleep(5000);
+        window.location.href = "/";
       } else {
         toast.update(id, {
-          render: "Not Verified !",
+          render: "Not Valid User !",
           type: "info",
           isLoading: false,
           theme: "dark",
           icon: " ❌ ",
           autoClose: true,
+          delay: 1000,
         });
+        await sleep(3000);
+        window.location.href = "/register-user";
       }
     } catch (error) {
       console.log(error);
@@ -129,6 +127,26 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   };
+
+  const getUserFullDteails = async () => {
+    try {
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+      let userData = await contract.getUserDetails(address);
+      let user = {
+        id: +userData["id"].toString(),
+        totalEtherSpent: +userData["totalEtherSpent"].toString(),
+        totalTokenRewards: +userData["totalTokenRewards"].toString(),
+        numberOfRefferrels: +userData["numberOfRefferrels"].toString(),
+        totalLoyalityTokenBalance:
+          +userData["totalLoyalityTokenBalance"].toString(),
+        products: userData["id"],
+      };
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   async function registerBrand(
     brandName,
     brandSymbol,
@@ -175,7 +193,9 @@ export const UserContextProvider = ({ children }) => {
         _loyalityReward
       );
       await approveTx.wait(2);
-      const transaction = await contract.registerUser(_loyalityReward);
+      const transaction = await contract.registerUser(_loyalityReward, {
+        from: address,
+      });
       await transaction.wait(2);
       toast.update(id, {
         render: "User Registered !",
@@ -397,12 +417,18 @@ export const UserContextProvider = ({ children }) => {
       console.log(data);
       setProducts(data);
     })();
-    brandDetails(1);
+    getUserFullDteails();
   }, [signer, address]);
 
   return (
     <UserDataContext.Provider
-      value={{ checkVerification, verified, mintNFT, confetti, products }}
+      value={{
+        checkVerification,
+        verified,
+        confetti,
+        products,
+        registerUserUsingNFTVerification,
+      }}
     >
       {children}
     </UserDataContext.Provider>

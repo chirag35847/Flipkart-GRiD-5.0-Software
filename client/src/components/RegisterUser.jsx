@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { useAccount } from "wagmi";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-const Authscreen = () => {
-  const { checkVerification, verified, confetti } = useUserDataContext();
+const RegisterUser = () => {
+  const { registerUserUsingNFTVerification, confetti } = useUserDataContext();
   const width = window.innerWidth;
   const height = window.innerHeight;
   const [walletAddress, setWalletAddress] = useState("");
@@ -14,8 +14,10 @@ const Authscreen = () => {
     const pastedText = event.clipboardData.getData("Text");
     setWalletAddress(pastedText);
   };
-  const checking = async () => {
-    await checkVerification(walletAddress);
+
+  const registerUser = async () => {
+    if (!walletAddress) return;
+    await registerUserUsingNFTVerification(walletAddress);
   };
 
   return (
@@ -70,17 +72,15 @@ const Authscreen = () => {
                   onPaste={handlePaste}
                 />
               </label>
-              <>
-                <button
-                  onClick={checking}
-                  className="form-input w-full mt-4 rounded-lg  text-white focus:outline-none
+              <button
+                onClick={registerUser}
+                className="form-input w-full mt-1 rounded-lg  text-white focus:outline-none
                    [ p-3 md:p-4 lg:p-4 ] 
                    [ transition-colors duration-500 ] 
                    [ bg-blue-800 hover:bg-blue-700 ] cursor-pointer"
-                >
-                  Verify
-                </button>
-              </>
+              >
+                Register
+              </button>
             </>
           ) : (
             <span className="flex items-center mt-2 font-medium tracking-wide text-red-400 text-xs  ml-1">
@@ -93,4 +93,4 @@ const Authscreen = () => {
   );
 };
 
-export default Authscreen;
+export default RegisterUser;
