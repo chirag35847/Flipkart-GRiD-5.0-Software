@@ -1,64 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
+import ProductHome from "./ProductHome";
+import Sales from "./Sales";
+import Footer from "./Footer";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-import ProductCard from "./ProductCard";
-
-const MarketPlace = () => {
+import BackGradients from "./BackGradients";
+const Marketplace = () => {
   const { products } = useUserDataContext();
-  return (
-    <>
-      <section id="sellers" className="bg-black text-white">
-        <div className="seller container">
-          <div className="flex justify-between">
-            <div><h2>Top Sales</h2></div>
-            <div class="dropdown inline-block relative">
-              <button class="bg-gray-300 text-gray-700 mt-5 py-2 px-4 rounded inline-flex items-center">
-                <span class="mr-1">Brands</span>
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
-                </svg>
-              </button>
-              <ul class="dropdown-menu absolute  text-gray-700 pt-1">
-                <li class="">
-                  <a
-                    class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                    href="#"
-                  >
-                    One
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                    href="#"
-                  >
-                    Two
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                    href="#"
-                  >
-                    Three is the magic number
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+  const [sortOrder, setSortOrder] = useState("bestRating");
+  const [categoryFilter, setCategoryFilter] = useState("All");
 
-          <div className="grid grid-cols-4 gap-4 mb-4">
-            {products.map((product, i) => {
-              return <ProductCard product={product} key={i} />;
-            })}
+  const handleSortOrderChange = (event) => setSortOrder(event.target.value);
+  const handleCategoryFilterChange = (event) =>
+    setCategoryFilter(event.target.value);
+
+  const filteredProducts = products.filter((product) => {
+    if (categoryFilter === "All") {
+      return true;
+    }
+    return product.category === categoryFilter;
+  });
+
+  const sortedAndFilteredProducts = filteredProducts.slice().sort((productA, productB) => {
+    const priceA = parseFloat(productA.price);
+    const priceB = parseFloat(productB.price);
+    const ratingA = parseFloat(productA.rating.rate);
+    const ratingB = parseFloat(productB.rating.rate);
+
+    if (sortOrder === "lowToHigh") {
+      return priceA - priceB;
+    } else if (sortOrder === "highToLow") {
+      return priceB - priceA;
+    } else if (sortOrder === "bestRating") {
+      return ratingB - ratingA;
+    }
+  });
+
+  return (
+    <div className="bg-gradient-to-b from-black to-gray-900 min-h-screen">
+      <ProductHome />
+      <div className="mt-14 px-6">
+        <div className="mt-14 px-6 flex items-center justify-between mb-4">
+          <h1 className="font-semibold text-white" id="sellers">
+            Top Sales
+          </h1>
+          <div className="flex justify-end">
+          <select
+            value={sortOrder}
+            onChange={handleSortOrderChange}
+            className="p-2 rounded-md bg-gray-800 text-white"
+          >
+            <option value="bestRating">Best Rating</option>
+            <option value="lowToHigh">Low to High</option>
+            <option value="highToLow">High to Low</option>
+          </select>
+          <select
+            value={categoryFilter}
+            onChange={handleCategoryFilterChange}
+            className="p-2 ml-4 rounded-md bg-gray-800 text-white"
+          >
+            <option value="All">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="men's clothing">Men's Clothing</option>
+            <option value="women's clothing">Women's Clothing</option>
+          </select>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="grid gap-4 md:grid-cols-4 sm:grid-cols-2">
+          {sortedAndFilteredProducts.map((product, i) => (
+            <Sales product={product} key={i} />
+          ))}
+        </div>
+      </div>
+      <BackGradients />
+      <Footer />
+    </div>
   );
 };
 
-export default MarketPlace;
+export default Marketplace;

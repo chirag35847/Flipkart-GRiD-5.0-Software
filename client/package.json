@@ -10,21 +10,19 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
-
-    "@mantine/hooks": "^6.0.19",
-
-    "@tabler/icons-react": "^2.30.0",
-
-    "mantine-datatable": "^2.9.11",
-
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
     "@mantine/core": "^6.0.19",
+    "@mantine/hooks": "^6.0.19",
     "@rainbow-me/rainbowkit": "^1.0.4",
+    "@tabler/icons-react": "^2.30.0",
     "dateformat": "^5.0.3",
     "ethers": "^5.7.2",
+    "mantine-datatable": "^2.9.11",
     "nft.storage": "^7.1.1",
     "numeral": "^2.0.6",
     "react": "^18.2.0",

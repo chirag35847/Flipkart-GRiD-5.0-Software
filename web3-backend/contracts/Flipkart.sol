@@ -7,13 +7,13 @@ contract EcommerceBrandTokenReward {
     address public owner;
     LoyaltyToken private rewardToken;
 
-    mapping(uint256 => Brand) public brands;
-    mapping(address => mapping(uint256 => uint256)) public brandTokens;
+    mapping(uint256 => Brand) private brands;
+    mapping(address => mapping(uint256 => uint256)) private brandTokens;
     mapping(address => mapping(uint256 => uint256)) public brandBalance;
     mapping(string => bool) public isBrand;
     mapping(address => bool) public isUser;
     mapping(address => bool) public isBrandAdmin;
-    mapping(address => User) public users;
+    mapping(address => User) private users;
     mapping(address => mapping(address => bool)) private brandOwnerToBrand;
     mapping(address => Referral) public referrals;
     mapping(address => address[]) public referrersToListOfReferees;
@@ -137,9 +137,9 @@ contract EcommerceBrandTokenReward {
 
     /**
      * @dev function to purchase the brand token
-     * @param _brandId id of the brand
-     * @param _amount amount of the brand token
+     * @param _loyalityReward amount of the brand token
      */
+
     function registerUser(uint256 _loyalityReward) public returns (bool) {
         require(msg.sender != address(0), "Provide Valid Address");
         require(!isUser[msg.sender], "Already Exist User");
@@ -161,8 +161,9 @@ contract EcommerceBrandTokenReward {
 
     /**
      * @dev function to loyality claim tokens
-     * @param loyalityTokenAddress
+     * @param loyalityTokenAddress amount
      */
+
     function claimLoyalityTokens(address loyalityTokenAddress) public {
         require(
             users[msg.sender].totalLoyalityTokenBalance > 0,
@@ -170,7 +171,7 @@ contract EcommerceBrandTokenReward {
         );
         uint balanceIncreased = users[msg.sender].totalLoyalityTokenBalance * 2;
         users[msg.sender].totalBalance += balanceIncreased;
-        LoyaltyToken(liquidityTokenAddress).burn(
+        LoyaltyToken(loyalityTokenAddress).burn(
             users[msg.sender].totalLoyalityTokenBalance
         );
         users[msg.sender].totalLoyalityTokenBalance = 0;
@@ -179,9 +180,10 @@ contract EcommerceBrandTokenReward {
     /**
      * @dev function to purchase the brand token
      * @param _brandId id of the brand
-     * @param brandAddress for transfer tokens
+     * @param brandTokenAddress for transfer tokens
      * @return bool
      */
+
     function claimBrandTokens(
         address brandTokenAddress,
         uint _brandId
@@ -234,7 +236,7 @@ contract EcommerceBrandTokenReward {
 
     /**
      * @dev function to purchase the brand item
-     * @param _brandId id of the brand
+     * @param _brandid id of the brand
      * @param _tokenReward amount of the brand token
      * @param _productID id of the product
      * @param price price of the product
@@ -275,8 +277,7 @@ contract EcommerceBrandTokenReward {
 
     /**
      * @dev function to get the user details
-     * @param _user address of the user
-     * @return details of the user
+     * @param _userAddress address of the user
      */
     function getUserDetails(
         address _userAddress
@@ -306,7 +307,6 @@ contract EcommerceBrandTokenReward {
     /**
      * @dev function to get the brand details
      * @param _brandId id of the brand
-     * @return details of the brand
      */
     function getBrandDetails(
         uint256 _brandId

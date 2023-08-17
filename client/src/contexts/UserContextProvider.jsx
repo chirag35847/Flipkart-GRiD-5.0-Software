@@ -1,11 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { NFTAddress, NFTAbi } from "../web3-services/constants";
+import {
+  NFTAddress,
+  NFTAbi,
+  EcommerceAbi,
+  EcommerceAddress,
+  LoyalityTokenABI,
+  LoyalityTokenAddress,
+} from "../web3-services/constants";
 import { ethers } from "ethers";
 import { BigNumber } from "ethers";
 import { toast } from "react-toastify";
-// import { supportedChains } from "../utils/chainConfig.ts";
 import { usePublicClient, useAccount, useNetwork } from "wagmi";
 import { useEthersSigner } from "../utils/signer.ts";
+
 const UserDataContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
@@ -128,11 +135,10 @@ export const UserContextProvider = ({ children }) => {
     tokenPercentage,
     basePrice
   ) {
-    const contract = new ethers.Contract(
-      CONTRACT_ADDRESS,
-      CONTRACT_ABI,
-      signer
-    );
+    let id = toast.loading("⏳ Register Brand... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
     try {
       const transaction = await contract.registerBrand(
         brandName,
@@ -141,9 +147,134 @@ export const UserContextProvider = ({ children }) => {
         basePrice
       );
       await transaction.wait(2);
-      console.log("Brand registered successfully!");
+      toast.update(id, {
+        render: "Brand Registered !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
     } catch (error) {
       console.error("Error registering brand:", error);
+    }
+  }
+
+  async function registerUser(_loyalityReward = 20) {
+    let id = toast.loading("⏳ Register User... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    try {
+      const transaction = await contract.registerUser(_loyalityReward);
+      await transaction.wait(2);
+      toast.update(id, {
+        render: "User Registered !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: "User Registered Already !",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+    }
+  }
+
+  async function changeBasePrice(_baseAmount, _brandId) {
+    let id = toast.loading("⏳ Changing base price ... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    try {
+      const transaction = await contract.changeBasePrice(_baseAmount, _brandId);
+      await transaction.wait(2);
+      toast.update(id, {
+        render: "Base price changed !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: "Base price Not changed !",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+    }
+  }
+
+  async function changePercentage(_basePercentage, _brandId) {
+    let id = toast.loading("⏳ Changing base percentage ... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    try {
+      const transaction = await contract.changePercentage(
+        _basePercentage,
+        _brandId
+      );
+      await transaction.wait(2);
+      toast.update(id, {
+        render: "Base percentage changed !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: "Base percentage Not changed !",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+    }
+  }
+
+  async function brandDetails(_brandId) {
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    try {
+      const brand = await contract.getBrandDetails(_brandId);
+      console.log("brand",brand);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function purchaseProduct(_brandid, _tokenReward, _productID, _price) {
+    let id = toast.loading("⏳ Preparing your product... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+
+    const transaction = await contract.purchase(_brandid, _tokenReward, _productID, _price);
+    await transaction.wait(2);
+    toast.update(id, {
+      render: "Product Purchased !",
+      type: "success",
+      isLoading: false,
+      theme: "dark",
+      icon: "✅",
+      autoClose: true,
+    });
+    try {
+    } catch (error) {
+      console.log(error);
     }
   }
   useEffect(() => {
