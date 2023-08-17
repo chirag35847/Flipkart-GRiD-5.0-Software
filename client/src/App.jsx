@@ -16,28 +16,33 @@ import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import MarketPlace from "./components/MarketPlace";
+
 import ProductDetails from "./components/ProductDetails";
 import Checkout from "./components/CheckoutModal";
 import CheckoutModal from "./components/CheckoutModal";
 import Payment from "./components/Payment";
 
 
+import RegisterUser from "./components/RegisterUser";
+
+
 function App() {
   return (
     <>
       <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
+        position="top-right"
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
+        draggablePercent={60}
         pauseOnHover
         theme="light"
       />
       <Routes>
+        <Route  exact path="/auth" element={<Authscreen />} />
         <Route
           path="/"
           exact
@@ -59,8 +64,8 @@ function App() {
           }
         />
         <Route  exact path="/dashboard" element={<Dashboard />} />
-        <Route  exact path="/auth" element={<Authscreen />} />
         <Route  exact path="/marketplace" element={<MarketPlace />} />
+
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route  exact path="/checkout" element={<CheckoutModal/>} />
         <Route  exact path="/payment" element={<Payment/>} />
@@ -68,6 +73,9 @@ function App() {
 
         
         
+
+        <Route  exact path="/register-user" element={< RegisterUser />} />
+
       </Routes>
     </>
   );
