@@ -26,6 +26,7 @@ export const UserContextProvider = ({ children }) => {
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const [products, setProducts] = useState([]); // [1
+  const [user,setUser]=useState({});
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -132,6 +133,16 @@ export const UserContextProvider = ({ children }) => {
     try {
       let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
       let userData = await contract.getUserDetails(address);
+      let brandID = await contract.brandID();
+      brandID = +brandID.toString();
+      const brandBalances = [];
+      for (let i = 1; i <= brandID; i++) {
+        let brand = await contract.getBrandTokenBalance(address, i);
+        brandBalances.push({
+          id: i,
+          balance: +brand.toString(),
+        });
+      }
       let user = {
         id: +userData["id"].toString(),
         totalEtherSpent: +userData["totalEtherSpent"].toString(),
@@ -140,8 +151,9 @@ export const UserContextProvider = ({ children }) => {
         totalLoyalityTokenBalance:
           +userData["totalLoyalityTokenBalance"].toString(),
         products: userData["id"],
+        brandBalances
       };
-      console.log(user);
+      setUser(user);
     } catch (error) {
       console.log(error);
     }
