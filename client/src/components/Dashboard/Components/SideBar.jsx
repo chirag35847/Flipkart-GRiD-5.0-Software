@@ -2,7 +2,7 @@ import React from 'react'
 
 const SideBar = () => {
   return (
-    <div class="flex flex-col items-center w-[14vw] pb-4 overflow-auto border-r border-gray-800 text-gray-500">
+    <div class="flex flex-col items-center w-[4vw] pb-4 overflow-auto border-r border-gray-800 text-gray-500">
           <a
             class="flex items-center justify-center flex-shrink-0 w-full h-16"
             href="#"
