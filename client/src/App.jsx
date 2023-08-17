@@ -20,6 +20,7 @@ import ProductDetails from "./components/ProductDetails";
 import Checkout from "./components/CheckoutModal";
 import CheckoutModal from "./components/CheckoutModal";
 import Payment from "./components/Payment";
+import Single from "./components/Single";
 
 
 function App() {

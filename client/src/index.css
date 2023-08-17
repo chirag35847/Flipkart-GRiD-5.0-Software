@@ -650,17 +650,17 @@ body {
   align-items: center;
 }
 
-.best-seller .red {
+ .red {
   color: var(--main-color);
   cursor: pointer;
 }
 
-.best-seller .blue {
+ .blue {
   color: #8989ce;
   cursor: pointer;
 }
 
-.best-seller .white {
+ .white {
   color: var(--pink);
   cursor: pointer;
 }
