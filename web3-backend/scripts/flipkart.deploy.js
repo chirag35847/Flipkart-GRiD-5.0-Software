@@ -1,5 +1,5 @@
 const loayalityTokenRewardAddress = "0x8cD7E7987FeB0dEF86a1420A8146CE3f1d51c10d";
-const ecommerceAddress="0x7C859ea1Bc844977A445B980f2257624FE8eE607";
+const ecommerceAddress="0x1aF638DC5c96a63a66BB6818574a9cc3CADa1472";
 async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

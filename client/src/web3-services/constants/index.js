@@ -439,7 +439,7 @@ export const NFTAbi =[
     }
   ];
 
-export const EcommerceAddress="0x7C859ea1Bc844977A445B980f2257624FE8eE607";
+export const EcommerceAddress="0x1aF638DC5c96a63a66BB6818574a9cc3CADa1472";
 export const EcommerceAbi=[
   {
     "inputs": [
@@ -716,6 +716,11 @@ export const EcommerceAbi=[
         "type": "string"
       },
       {
+        "internalType": "string",
+        "name": "symbol",
+        "type": "string"
+      },
+      {
         "internalType": "uint256",
         "name": "tokenPercentage",
         "type": "uint256"
@@ -724,6 +729,16 @@ export const EcommerceAbi=[
         "internalType": "address",
         "name": "brandAddress",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "brandOwner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "basePrice",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

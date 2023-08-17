@@ -165,7 +165,16 @@ export const UserContextProvider = ({ children }) => {
       theme: "dark",
     });
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    const tokenContract = await getContractInstance(
+      LoyalityTokenAddress,
+      LoyalityTokenABI
+    );
     try {
+      let approveTx = await tokenContract.approve(
+        EcommerceAddress,
+        _loyalityReward
+      );
+      await approveTx.wait(2);
       const transaction = await contract.registerUser(_loyalityReward);
       await transaction.wait(2);
       toast.update(id, {
@@ -251,21 +260,57 @@ export const UserContextProvider = ({ children }) => {
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
     try {
       const brand = await contract.getBrandDetails(_brandId);
-      console.log("brand",brand);
+      return {
+        id: +brand["id"].toString(),
+        name: brand["name"],
+        symbol: brand["symbol"],
+        tokenPercentage: +brand["tokenPercentage"].toString(),
+        brandAddress: brand["brandAddress"],
+        brandOwner: brand["brandOwner"],
+        basePrice: +brand["basePrice"].toString(),
+      };
     } catch (error) {
       console.log(error);
     }
   }
-  async function purchaseProduct(_brandid, _tokenReward, _productID, _price) {
+  async function purchaseProduct(_brandid, _productID, _price) {
     let id = toast.loading("⏳ Preparing your product... ", {
       theme: "dark",
     });
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
 
-    const transaction = await contract.purchase(_brandid, _tokenReward, _productID, _price);
+    const brand = await brandDetails(_brandid);
+    let tokenReward = 0;
+    if (_price > brand?.basePrice) {
+      let percentage = brand?.tokenPercentage;
+      tokenReward = (_price * percentage) / 1000;
+    }
+    toast.update(id, {
+      render: "Approving Transaction ...",
+      type: "success",
+      isLoading: true,
+      theme: "dark",
+      icon: "⏳",
+      autoClose: true,
+    });
+    const tokenContract = await getContractInstance(
+      brand?.brandAddress,
+      LoyalityTokenABI
+    );
+
+    let approveTx = await tokenContract.approve(EcommerceAddress, tokenReward);
+    await approveTx.wait(2);
+    const transaction = await contract.purchase(
+      _brandid,
+      tokenReward,
+      _productID,
+      _price
+    );
     await transaction.wait(2);
     toast.update(id, {
-      render: "Product Purchased !",
+      render: tokenReward
+        ? `You Got rewards on your purchase item ${tokenReward}`
+        : "Product Purchased !",
       type: "success",
       isLoading: false,
       theme: "dark",
@@ -277,6 +322,73 @@ export const UserContextProvider = ({ children }) => {
       console.log(error);
     }
   }
+
+  const claimLoyalityTokens = async () => {
+    let id = toast.loading("⏳ Claiming tokens... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+
+    try {
+      let transaction = await contract.claimLoyalityTokens(
+        LoyalityTokenAddress,
+        { from: address }
+      );
+      await transaction.wait(2);
+      toast.update(id, {
+        render: "Claimed !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: "Claimed Failed !",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+    }
+  };
+
+  const claimBrandTokens = async (brandID) => {
+    let id = toast.loading("⏳ Claiming tokens... ", {
+      theme: "dark",
+    });
+    const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    try {
+      const brand = await brandDetails(brandID);
+
+      let transaction = await contract.claimBrandTokens(
+        brand?.brandAddress,
+        brandID,
+        { from: address }
+      );
+      await transaction.wait(2);
+      toast.update(id, {
+        render: "Claimed !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: "Claimed Failed !",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+    }
+  };
+
   useEffect(() => {
     if (!signer) return;
     (async () => {
@@ -285,6 +397,7 @@ export const UserContextProvider = ({ children }) => {
       console.log(data);
       setProducts(data);
     })();
+    brandDetails(1);
   }, [signer, address]);
 
   return (

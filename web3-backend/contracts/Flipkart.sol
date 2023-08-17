@@ -41,7 +41,7 @@ contract EcommerceBrandTokenReward {
         string symbol;
         uint256 tokenPercentage;
         address brandAddress;
-        address owner;
+        address brandOwner;
         uint256 basePrice;
     }
 
@@ -314,18 +314,24 @@ contract EcommerceBrandTokenReward {
         public
         view
         returns (
-            uint256 id,
-            string memory name,
-            uint256 tokenPercentage,
-            address brandAddress
+             uint256 id,
+        string memory name,
+        string memory symbol,
+        uint256 tokenPercentage,
+        address brandAddress,
+        address brandOwner,
+        uint256 basePrice
         )
     {
         Brand memory brand = brands[_brandId];
         return (
             brand.id,
             brand.name,
+            brand.symbol,
             brand.tokenPercentage,
-            brand.brandAddress
+            brand.brandAddress,
+            brand.brandOwner,
+            brand.basePrice
         );
     }
 
