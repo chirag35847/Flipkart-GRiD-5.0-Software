@@ -13,7 +13,7 @@ const NavBar = () => {
         <div className="cursor-pointer w-[60%] md:w-[20%] flex items-center">
           <Link to="/" className="flex items-center">
             <img
-              src="./assets/logo.svg"
+              src="/assets/logo.svg"
               alt="Logo"
               className="w-auto h-10 mx-2"
             />
