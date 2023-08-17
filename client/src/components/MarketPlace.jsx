@@ -3,7 +3,7 @@ import ProductHome from "./ProductHome";
 import Sales from "./Sales";
 import Footer from "./Footer";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-
+import BackGradients from "./BackGradients";
 const Marketplace = () => {
   const { products } = useUserDataContext();
   const [sortOrder, setSortOrder] = useState("bestRating");
@@ -73,6 +73,7 @@ const Marketplace = () => {
           ))}
         </div>
       </div>
+      <BackGradients />
       <Footer />
     </div>
   );
