@@ -446,20 +446,7 @@ body {
   border-radius: 10px;
 }
 
-/* Add this CSS in your stylesheet */
-.home_img {
-  perspective: 10000px;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-}
 
-.home_img img {
-  transform: translateZ(-50px);
-}
-
-.home_img:hover {
-  transform: rotateY(-20deg) rotateX(20deg);
-}
 
 
 

@@ -459,17 +459,28 @@ export const UserContextProvider = ({ children }) => {
     isTodayFestival();
   }, []);
 
+  // useEffect(() => {
+  //   if (!signer) return;
+  //   (async () => {
+  //     let res = await fetch("https://snehagupta1907.github.io/data/product.json");
+  //     let data = await res.json();
+  //     console.log(data);
+  //     setProducts(data);
+  //   })();
+  //   getUserFullDteails();
+  //   brandDetails(1);
+  // }, [signer, address]);
+
   useEffect(() => {
-    if (!signer) return;
     (async () => {
-      let res = await fetch("https://fakestoreapi.com/products");
+      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
       let data = await res.json();
       console.log(data);
       setProducts(data);
     })();
     getUserFullDteails();
     brandDetails(1);
-  }, [signer, address]);
+  }, []);
 
   return (
     <UserDataContext.Provider
