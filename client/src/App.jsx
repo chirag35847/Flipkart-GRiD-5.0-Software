@@ -26,6 +26,7 @@ import Payment from "./components/Payment";
 import AdminDashboard from "./AdminDashboard";
 
 import RegisterUser from "./components/RegisterUser";
+import DashBoard from "./components/UserDash/DashBoard";
 
 function App() {
   return (
@@ -67,7 +68,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/marketplace" element={<MarketPlace />} />
         <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
-        <Route exact path="/userProfile" element={<Profile />} />
+        <Route exact path="/userProfile" element={<DashBoard />} />
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route exact path="/checkout" element={<CheckoutModal />} />
