@@ -17,7 +17,7 @@ const NavBar = () => {
               alt="Logo"
               className="w-auto h-10 mx-2"
             />
-            <h1 className="font-bold">CoinZ</h1>
+            <h1 className="font-md">Decentra 🛒 Shop</h1>
           </Link>
         </div>
         {isHomePage && (

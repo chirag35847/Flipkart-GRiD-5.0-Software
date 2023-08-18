@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center mt-4">
-        <p>&copy; {new Date().getFullYear()} CoinZ. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} DecentraShop. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -6,15 +6,7 @@ const Nft = () => {
     const [tab,setTab] = useState('first');
   return (
     <div className='flex flex-col'>
-        <div className='bg-[#262834] h-[6vh] w-[100%] rounded-2xl text-white p-3 mb-3'>Your NFTs</div>
-
-        <Tabs value={tab} onTabChange={setTab} className='mb-3'>
-            <Tabs.List>
-                <Tabs.Tab key={'1'} value="first">Owned</Tabs.Tab>
-                <Tabs.Tab key={'2'} value="second">Suspecious</Tabs.Tab>
-            </Tabs.List>
-        </Tabs>
-
+        <div className='bg-[#445069] h-[14%] w-[100%] rounded-2xl text-white p-3 mb-3'>Your NFTs</div>
         {
             tab=='first'?
             <div className='w-full'>
@@ -32,11 +24,7 @@ const Nft = () => {
                         ]}
                     >
                         <NFTCard/>
-                        <NFTCard/>
-                        <NFTCard/>
-                        <NFTCard/>
-                        <NFTCard/>
-                        <NFTCard/>
+                        
                     </SimpleGrid>
                 </ScrollArea>
             </div>

@@ -13,7 +13,7 @@ const Home = () => {
       <div className="z-10 mb-6 lg:mt-10 mobile:mt-10">
         <div className="txt-ternary-light capitalize md:w-[60%] mobile:w-[85%] mx-auto lg:text-[20px] mt-3 md:flex-row flex mobile:flex-col mobile:items-center justify-center">
           <div>
-          At CoinZ, we pioneer blockchain-driven loyalty solutions for E-commerce. Our platform generates transparent and secure fungible tokens, fostering seamless user engagement and real-time settlements between brands and partners, all in a user-centric digital environment.
+          At Decentra Shop, we pioneer blockchain-driven loyalty solutions for E-commerce. Our platform generates transparent and secure fungible tokens, fostering seamless user engagement and real-time settlements between brands and partners, all in a user-centric digital environment.
           </div>
         </div>
       </div>

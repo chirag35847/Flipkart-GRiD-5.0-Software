@@ -13,9 +13,8 @@ const Dashboard = () => {
       <div class="flex w-screen h-screen text-gray-400 bg-gray-900">
         <SideBar/>
         <div class="flex flex-col flex-grow">
-          <NavBar/>
           <div class="flex-grow p-6 overflow-auto bg-gray-800">
-              <div className="lg:p-[2%] md:p-[4%] sm:p-[4%] lg:mt-[5%] md:mt-[10%] sm:mt-[10%] bg-[#1a1b1e] h-[85vh] w-[100%] rounded-3xl">
+              <div className="lg:p-[2%] md:p-[4%] sm:p-[4%] lg:mt-[5%] md:mt-[2%] sm:mt-[10%] bg-[#1a1b1e] h-[85vh] w-[100%] rounded-3xl">
                 <div className="p-2 bg-[#1a1b1e] h-[5vh] w-[100%] rounded-2xl md:mb-[3%] lg:mb-[2%]">
                   <div className="flex">
                   <Button.Group className="">

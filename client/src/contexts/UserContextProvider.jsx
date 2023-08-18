@@ -26,7 +26,33 @@ export const UserContextProvider = ({ children }) => {
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const [products, setProducts] = useState([]); // [1
-  const [user,setUser]=useState({});
+  const [user, setUser] = useState({});
+  const [brandFullDetails, setBrandFullDetails] = useState({});
+  const [festival, setFestival] = useState(null);
+  const festivalDates = {
+    "2023-01-01": "New Year's Day",
+    "2023-02-14": "Valentine's Day",
+    "2023-03-17": "St. Patrick's Day",
+    "2023-04-05": "Ram Navami", // Hindu Festival
+    "2023-04-15": "Easter Sunday", // Christian Festival - This date changes every year; ensure it's correct for 2023
+    "2023-05-26": "Buddha Purnima", // Buddhist Festival
+    "2023-07-04": "Independence Day (USA)",
+    "2023-08-10": "Raksha Bandhan", // Hindu Festival
+    "2023-08-30": "Janmashtami", // Birthday of Lord Krishna - Hindu Festival
+    "2023-10-21": "Dussehra", // Hindu Festival
+    "2023-10-31": "Halloween",
+    "2023-11-09": "Diwali", // Hindu Festival
+    "2023-11-25": "Thanksgiving Day", // USA Festival - This date changes every year; ensure it's correct for 2023
+    "2023-12-03": "Hanukkah Starts", // Jewish Festival - This date changes; ensure it's correct for 2023
+    "2023-12-25": "Christmas Day",
+    "2023-12-31": "New Year's Eve",
+  };
+  function isTodayFestival() {
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0]; // Converts today's date to YYYY-MM-DD format
+    let festive = festivalDates[formattedToday] || null;
+    setFestival(festive);
+  }
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -151,7 +177,7 @@ export const UserContextProvider = ({ children }) => {
         totalLoyalityTokenBalance:
           +userData["totalLoyalityTokenBalance"].toString(),
         products: userData["id"],
-        brandBalances
+        brandBalances,
       };
       setUser(user);
     } catch (error) {
@@ -228,7 +254,11 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   }
-
+  function formatAddress(address) {
+    let firstPart = address.substring(0, 8);
+    let lastPart = address.substring(address.length - 5, address.length);
+    return (firstPart + "..." + lastPart).toUpperCase();
+  }
   async function changeBasePrice(_baseAmount, _brandId) {
     let id = toast.loading("⏳ Changing base price ... ", {
       theme: "dark",
@@ -292,7 +322,7 @@ export const UserContextProvider = ({ children }) => {
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
     try {
       const brand = await contract.getBrandDetails(_brandId);
-      return {
+      let brandDetail = {
         id: +brand["id"].toString(),
         name: brand["name"],
         symbol: brand["symbol"],
@@ -301,6 +331,8 @@ export const UserContextProvider = ({ children }) => {
         brandOwner: brand["brandOwner"],
         basePrice: +brand["basePrice"].toString(),
       };
+      setBrandFullDetails(brandDetail);
+      return brandDetail;
     } catch (error) {
       console.log(error);
     }
@@ -316,6 +348,7 @@ export const UserContextProvider = ({ children }) => {
     if (_price > brand?.basePrice) {
       let percentage = brand?.tokenPercentage;
       tokenReward = (_price * percentage) / 1000;
+      console.log("Token Rewad", tokenReward);
     }
     toast.update(id, {
       render: "Approving Transaction ...",
@@ -336,7 +369,8 @@ export const UserContextProvider = ({ children }) => {
       _brandid,
       tokenReward,
       _productID,
-      _price
+      _price,
+      { from: address, value: _price }
     );
     await transaction.wait(2);
     toast.update(id, {
@@ -422,6 +456,11 @@ export const UserContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    isTodayFestival();
+  }, []);
+
+  useEffect(() => {
+    if (!signer) return;
     (async () => {
       let res = await fetch("https://snehagupta1907.github.io/data/product.json");
       let data = await res.json();
@@ -429,8 +468,8 @@ export const UserContextProvider = ({ children }) => {
       setProducts(data);
     })();
     getUserFullDteails();
-  }, []);
-
+    brandDetails(1);
+  }, [signer, address]);
 
   return (
     <UserDataContext.Provider
@@ -440,6 +479,12 @@ export const UserContextProvider = ({ children }) => {
         confetti,
         products,
         registerUserUsingNFTVerification,
+        changePercentage,
+        changeBasePrice,
+        brandDetails,
+        brandFullDetails,
+        formatAddress,
+        purchaseProduct,
       }}
     >
       {children}
