@@ -142,13 +142,15 @@ const DashBoard = () => {
                                     <Card padding={'lg'} radius={'md'} withBorder className='ml-[3vw]' h={'40vh'}>
                                         <Card.Section p={12} pt={25}>
                                             <Image 
-                                                src={'https://imageio.forbes.com/specials-images/imageserve/6170e01f8d7639b95a7f2eeb/Sotheby-s-NFT-Natively-Digital-1-2-sale-Bored-Ape-Yacht-Club--8817-by-Yuga-Labs/0x0.png?format=png&width=960'}
+                                                className='object-contain'
+                                                src={'./assets/grid_logo.png'}
                                                 height={'30vh'}
+                                                width={'18vw'}
                                                 alt='monkey-nft'
                                                 radius={'md'}
                                             />
                                         </Card.Section>
-                                        <div className='absolute bg-[#8BE8E5] border-4 border-[#25262b] rounded-full w-[8vw] h-[4vh] top-[.25vh] left-0 right-0 m-auto'>
+                                        <div className='absolute bg-[#ffe150] border-4 border-[#25262b] rounded-full w-[8vw] h-[4vh] top-[.25vh] left-0 right-0 m-auto'>
                                             <div className='flex w-full justify-center content-center'>
                                             {/* <Text color='black'>$45</Text> */}
                                             </div>
