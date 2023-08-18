@@ -26,8 +26,8 @@ export const UserContextProvider = ({ children }) => {
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const [products, setProducts] = useState([]); // [1
-  const [user,setUser]=useState({});
-  const [brandFullDetails,setBrandFullDetails]=useState({});
+  const [user, setUser] = useState({});
+  const [brandFullDetails, setBrandFullDetails] = useState({});
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -152,7 +152,7 @@ export const UserContextProvider = ({ children }) => {
         totalLoyalityTokenBalance:
           +userData["totalLoyalityTokenBalance"].toString(),
         products: userData["id"],
-        brandBalances
+        brandBalances,
       };
       setUser(user);
     } catch (error) {
@@ -229,7 +229,11 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   }
-
+  function formatAddress(address) {
+    let firstPart = address.substring(0, 8);
+    let lastPart = address.substring(address.length - 5, address.length);
+    return (firstPart + "..." + lastPart).toUpperCase();
+  }
   async function changeBasePrice(_baseAmount, _brandId) {
     let id = toast.loading("⏳ Changing base price ... ", {
       theme: "dark",
@@ -293,7 +297,7 @@ export const UserContextProvider = ({ children }) => {
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
     try {
       const brand = await contract.getBrandDetails(_brandId);
-      return {
+      let brandDetail = {
         id: +brand["id"].toString(),
         name: brand["name"],
         symbol: brand["symbol"],
@@ -302,7 +306,8 @@ export const UserContextProvider = ({ children }) => {
         brandOwner: brand["brandOwner"],
         basePrice: +brand["basePrice"].toString(),
       };
-      
+      setBrandFullDetails(brandDetail);
+      return brandDetail;
     } catch (error) {
       console.log(error);
     }
@@ -443,7 +448,10 @@ export const UserContextProvider = ({ children }) => {
         products,
         registerUserUsingNFTVerification,
         changePercentage,
-        changeBasePrice
+        changeBasePrice,
+        brandDetails,
+        brandFullDetails,
+        formatAddress
       }}
     >
       {children}

@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import BackGradients from "./components/BackGradients";
 import { useUserDataContext } from "./contexts/UserContextProvider";
 
 const AdminDashboard = () => {
   const [percentage, setPercentage] = useState(0);
   const [baseprice, setBasePrice] = useState(0);
-  const { changePercentage, changeBasePrice } = useUserDataContext();
+  const { address } = useAccount();
+  const {
+    changePercentage,
+    changeBasePrice,
+    brandFullDetails,
+    brandDetails,
+    formatAddress,
+  } = useUserDataContext();
+  useEffect(() => {
+    (async () => {
+      await brandDetails(1);
+      console.log(brandFullDetails);
+    })();
+  }, []);
+
   const changingPercentage = async () => {
     if (!percentage) {
       alert("Please enter percentage");
@@ -25,11 +40,14 @@ const AdminDashboard = () => {
   return (
     <>
       <BackGradients />
-      <div class="flex h-screen">
-        <div class="px-4 py-2 bg-black lg:w-1/4">
+      <div
+        className="flex h-screen "
+ 
+      >
+        <div className="px-4 py-2 bg-black lg:w-1/4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="inline w-8 h-8 text-white lg:hidden"
+            className="inline w-8 h-8 text-white lg:hidden"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -41,19 +59,19 @@ const AdminDashboard = () => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-          <div class="hidden lg:block mt-10">
-            <div class="my-2 mb-6">
-              <h1 class="text-2xl font-bold text-white">Brand Dashboard</h1>
+          <div className="hidden lg:block mt-10">
+            <div className="my-2 mb-6">
+              <h1 className="text-2xl font-bold text-white">Brand Dashboard</h1>
             </div>
             <ul className="mt-10">
-              <li class="mb-2 rounded hover:shadow hover:bg-gray-800">
+              <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
                 <a
                   href="/"
-                  class="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="inline-block w-6 h-6 mr-2 -mt-2"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -68,14 +86,14 @@ const AdminDashboard = () => {
                   Home
                 </a>
               </li>
-              <li class="mb-2 bg-gray-800 rounded shadow">
+              <li className="mb-2 bg-gray-800 rounded shadow">
                 <a
                   href="#"
-                  class="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="inline-block w-6 h-6 mr-2 -mt-2"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -88,14 +106,14 @@ const AdminDashboard = () => {
                   Blogs
                 </a>
               </li>
-              <li class="mb-2 rounded hover:shadow hover:bg-gray-800">
+              <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
                 <a
                   href="#"
-                  class="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="inline-block w-6 h-6 mr-2 -mt-2"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -110,14 +128,14 @@ const AdminDashboard = () => {
                   Reports
                 </a>
               </li>
-              <li class="mb-2 rounded hover:shadow hover:bg-gray-800">
+              <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
                 <a
                   href="#"
-                  class="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="inline-block w-6 h-6 mr-2 -mt-2"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -135,14 +153,14 @@ const AdminDashboard = () => {
             </ul>
           </div>
         </div>
-        <div class="w-full px-4 py-2 bg-black lg:w-full h-full">
-          <div class="container mx-auto mt-12">
-            <div class="grid gap-4 lg:grid-cols-3 mt-10">
-              <div class="flex items-center px-4 py-6  backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+        <div className="w-full px-4 py-2 bg-black lg:w-full h-full">
+          <div className="container mx-auto mt-12">
+            <div className="grid gap-4 lg:grid-cols-3 mt-10">
+              <div className="flex items-center px-4 py-6  backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -155,16 +173,18 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">TATA</h4>
-                  <div class="text-gray-500">Brand Name</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    #00{brandFullDetails?.id}
+                  </h4>
+                  <div className="text-gray-500">Brand ID</div>
                 </div>
               </div>
-              <div class="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+              <div className="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -179,16 +199,18 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">TA</h4>
-                  <div class="text-gray-500">Brand Symbol</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {brandFullDetails?.name}
+                  </h4>
+                  <div className="text-gray-500">Brand Name</div>
                 </div>
               </div>
-              <div class="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+              <div className="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -201,18 +223,20 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">1000</h4>
-                  <div class="text-gray-500">All Transaction</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {brandFullDetails?.symbol}
+                  </h4>
+                  <div className="text-gray-500">Brand Symbol</div>
                 </div>
               </div>
             </div>
-            <div class="grid gap-4 lg:grid-cols-3 mt-10">
-              <div class="flex items-center px-4 py-6  backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+            <div className="grid gap-4 lg:grid-cols-3 mt-10">
+              <div className="flex items-center px-4 py-6  backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -225,16 +249,18 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">TATA</h4>
-                  <div class="text-gray-500">Brand Name</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {brandFullDetails?.tokenPercentage}
+                  </h4>
+                  <div className="text-gray-500">Token Percentage</div>
                 </div>
               </div>
-              <div class="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+              <div className="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -249,16 +275,18 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">TA</h4>
-                  <div class="text-gray-500">Brand Symbol</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {brandFullDetails?.basePrice}
+                  </h4>
+                  <div className="text-gray-500">Brand Base Price</div>
                 </div>
               </div>
-              <div class="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
-                <div class="p-3 bg-indigo-600 rounded">
+              <div className="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -271,9 +299,43 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </div>
-                <div class="mx-4">
-                  <h4 class="text-2xl font-semibold text-white">1000</h4>
-                  <div class="text-gray-500">All Transaction</div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {formatAddress(
+                      brandFullDetails?.brandOwner
+                        ? brandFullDetails?.brandOwner
+                        : "oxabcde"
+                    )}
+                  </h4>
+                  <div className="text-gray-500">Brand Owner</div>
+                </div>
+              </div>
+              <div className="flex items-center px-4 py-6 backdrop-blur-lg border  rounded-md shadow-md">
+                <div className="p-3 bg-indigo-600 rounded">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <div className="mx-4">
+                  <h4 className="text-2xl font-semibold text-white">
+                    {formatAddress(
+                      brandFullDetails?.brandAddress
+                        ? brandFullDetails?.brandAddress
+                        : "oxabcde"
+                    )}
+                  </h4>
+                  <div className="text-gray-500">Brand Token Address</div>
                 </div>
               </div>
             </div>
@@ -341,66 +403,66 @@ const AdminDashboard = () => {
                 </button>
               </div>
             </div>
-            <div class="flex flex-col mt-8">
-              <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div class="inline-block min-w-full  overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                  <table class="min-w-full ">
+            <div className="flex flex-col mt-8">
+              <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div className="inline-block min-w-full  overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                  <table className="min-w-full ">
                     <thead>
                       <tr>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Name
                         </th>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Email
                         </th>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Status
                         </th>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Edit
                         </th>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Delete
                         </th>
                       </tr>
                     </thead>
 
-                    <tbody class="bg-white">
+                    <tbody className="bg-white">
                       <tr>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 w-10 h-10">
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 w-10 h-10">
                               <img
-                                class="w-10 h-10 rounded-full"
+                                className="w-10 h-10 rounded-full"
                                 src="https://source.unsplash.com/user/erondu"
                                 alt="admin dashboard ui"
                               />
                             </div>
 
-                            <div class="ml-4">
-                              <div class="text-sm font-medium leading-5 text-gray-900">
+                            <div className="ml-4">
+                              <div className="text-sm font-medium leading-5 text-gray-900">
                                 John Doe
                               </div>
                             </div>
                           </div>
                         </td>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <div class="text-sm leading-5 text-gray-500">
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <div className="text-sm leading-5 text-gray-500">
                             john@example.com
                           </div>
                         </td>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
                             Active
                           </span>
                         </td>
 
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                        <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6 text-blue-400"
+                            className="w-6 h-6 text-blue-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -413,10 +475,10 @@ const AdminDashboard = () => {
                             />
                           </svg>
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                        <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6 text-red-400"
+                            className="w-6 h-6 text-red-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
