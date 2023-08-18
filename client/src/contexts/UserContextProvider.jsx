@@ -28,6 +28,31 @@ export const UserContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]); // [1
   const [user, setUser] = useState({});
   const [brandFullDetails, setBrandFullDetails] = useState({});
+  const [festival, setFestival] = useState(null);
+  const festivalDates = {
+    "2023-01-01": "New Year's Day",
+    "2023-02-14": "Valentine's Day",
+    "2023-03-17": "St. Patrick's Day",
+    "2023-04-05": "Ram Navami", // Hindu Festival
+    "2023-04-15": "Easter Sunday", // Christian Festival - This date changes every year; ensure it's correct for 2023
+    "2023-05-26": "Buddha Purnima", // Buddhist Festival
+    "2023-07-04": "Independence Day (USA)",
+    "2023-08-10": "Raksha Bandhan", // Hindu Festival
+    "2023-08-30": "Janmashtami", // Birthday of Lord Krishna - Hindu Festival
+    "2023-10-21": "Dussehra", // Hindu Festival
+    "2023-10-31": "Halloween",
+    "2023-11-09": "Diwali", // Hindu Festival
+    "2023-11-25": "Thanksgiving Day", // USA Festival - This date changes every year; ensure it's correct for 2023
+    "2023-12-03": "Hanukkah Starts", // Jewish Festival - This date changes; ensure it's correct for 2023
+    "2023-12-25": "Christmas Day",
+    "2023-12-31": "New Year's Eve",
+  };
+  function isTodayFestival() {
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0]; // Converts today's date to YYYY-MM-DD format
+    let festive = festivalDates[formattedToday] || null;
+    setFestival(festive);
+  }
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -427,6 +452,10 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   };
+  
+  useEffect(() => {
+    isTodayFestival();
+  }, []);
 
   useEffect(() => {
     if (!signer) return;
@@ -451,7 +480,7 @@ export const UserContextProvider = ({ children }) => {
         changeBasePrice,
         brandDetails,
         brandFullDetails,
-        formatAddress
+        formatAddress,
       }}
     >
       {children}

@@ -88,7 +88,8 @@ const AdminDashboard = () => {
               </li>
               <li className="mb-2 bg-gray-800 rounded shadow">
                 <a
-                  href="#"
+             
+                href="/admin-dashboard"
                   className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
@@ -103,13 +104,13 @@ const AdminDashboard = () => {
                       clip-rule="evenodd"
                     />
                   </svg>
-                  Blogs
+                  Dashboard
                 </a>
               </li>
               <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
                 <a
-                  href="#"
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -130,8 +131,8 @@ const AdminDashboard = () => {
               </li>
               <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
                 <a
-                  href="#"
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                 
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +340,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="grid gap-4 lg:grid-cols-4 mt-10 w-[100%] ">
+            <div className="grid gap-4 lg:grid-cols-2 mt-10 w-[100%] ">
               <div className="">
                 <label
                   for="basePrice"
@@ -350,12 +351,12 @@ const AdminDashboard = () => {
                     className="
               
               border 
-                    block w-1/1 rounded-lg leading-none focus:outline-none placeholder-white/50 
+                     w-full rounded-lg leading-none focus:outline-none placeholder-white/50 
                     [ transition-colors duration-200 ] 
                     [ py-3 pr-1 md:py-4 md:pr-1 lg:py-4 lg:pr-1 pl-4 ] 
                     [ bg-black/20 focus:bg-black/25 ] 
                     [ text-[#fff] focus:text-white ]"
-                    type="text"
+                    type="number"
                     name="basePrice"
                     id="basePrice"
                     placeholder="Change base price "
@@ -381,7 +382,7 @@ const AdminDashboard = () => {
                     className="form-input 
               
               border 
-                    block w-1/1 rounded-lg leading-none focus:outline-none placeholder-white/50 
+              w-full rounded-lg leading-none focus:outline-none placeholder-white/50 
                     [ transition-colors duration-200 ] 
                     [ py-3 pr-1 md:py-4 md:pr-1 lg:py-4 lg:pr-1 pl-4 ] 
                     [ bg-black/20 focus:bg-black/25 ] 
