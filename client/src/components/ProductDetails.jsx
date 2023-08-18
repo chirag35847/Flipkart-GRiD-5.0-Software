@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BsFillCircleFill } from "react-icons/bs";
+import { MdArrowBack } from "react-icons/md";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -15,8 +16,8 @@ const ProductDetails = () => {
     fetch(`https://snehagupta1907.github.io/data/product.json`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        const product = data.find(item => item.id.toString() === productId);
+        console.log(data);
+        const product = data.find((item) => item.id.toString() === productId);
         console.log(product);
         setProductDetails(product);
       })
@@ -38,8 +39,9 @@ const ProductDetails = () => {
   const descriptionPoints = productDetails.description.split(". ");
 
   return (
+    <>
     <div className="bg-gradient-to-br from-black to-gray-600 min-h-fit text-white">
-      <NavBar />
+      <NavBar />   
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 py-8 md:py-16">
           <div className="product_images bg-cover bg-center flex justify-center items-center overflow-hidden transform hover:scale-105 transition-transform relative ">
@@ -54,9 +56,13 @@ const ProductDetails = () => {
             className="product_details p-4 md:p-3 shadow-lg"
             style={{ backgroundColor: "#161616" }}
           >
-            <h2 className="text-sm title-font text-gray-300 tracking-widest">
-              {productDetails.brandName}
-            </h2>
+              <MdArrowBack
+                className="cursor-pointer text-3xl mb-2"
+                onClick={() => window.history.back()}
+              />
+               <h2 className="text-sm title-font text-gray-300 tracking-widest">
+                {productDetails.brandName}
+              </h2>
             <h2 className="text-gray-400 text-4xl md:text-3xl title-font font-medium mb-1">
               {productDetails.title}
             </h2>
@@ -65,9 +71,9 @@ const ProductDetails = () => {
                 {[...Array(5)].map((_, index) => (
                   <span key={index}>
                     {index < Math.floor(productDetails.rating.rate) ? (
-                      <AiFillStar className="text-yellow-500"  />
+                      <AiFillStar className="text-yellow-500" />
                     ) : (
-                      <AiOutlineStar className="text-yellow-500"  />
+                      <AiOutlineStar className="text-yellow-500" />
                     )}
                   </span>
                 ))}
@@ -83,7 +89,7 @@ const ProductDetails = () => {
                 <span className="text-blue-400">In-Stock</span>
               </p>
               <p className="text-sm md:text-base">
-                Token ID: <span className="text-blue-400">{productId}</span>
+                Product ID: <span className="text-blue-400">{productId}</span>
               </p>
               <p className="text-sm md:text-base">
                 Tags:{" "}
@@ -154,6 +160,7 @@ const ProductDetails = () => {
       )}
       <Footer />
     </div>
+    </>
   );
 };
 
