@@ -21,7 +21,7 @@ const { chains, publicClient } = configureChains(
           };
         } else if (chainId.id == 80001) {
           return {
-            http: "https://polygon-mumbai.g.alchemy.com/v2/EaKu789oxhWzYFvzEzOPAkCqIl2CwKj5",
+            http: "https://rpc-mumbai.maticvigil.com",
             webSocket:
               "wss://polygon-mumbai.g.alchemy.com/v2/EaKu789oxhWzYFvzEzOPAkCqIl2CwKj5",
           };

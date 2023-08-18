@@ -1,4 +1,4 @@
-export const NFTAddress ="0xC05C39D0C7580DDb97c72A9C6732b1Ea11C5f20e";
+export const NFTAddress ="0x6964CdE9346F11fF5066187388bBb917ABCdb8C0";
 export const NFTAbi =[
     {
       "inputs": [],
@@ -439,8 +439,8 @@ export const NFTAbi =[
     }
   ];
 
-export const EcommerceAddress="0x1aF638DC5c96a63a66BB6818574a9cc3CADa1472";
-export const EcommerceAbi=[
+export const EcommerceAddress="0x0F2007Be450C0FD6c9F965771CB6d12Ae1b0e61F";
+export const EcommerceAbi= [
   {
     "inputs": [
       {
@@ -828,9 +828,31 @@ export const EcommerceAbi=[
         "type": "uint256"
       },
       {
-        "internalType": "uint256[]",
+        "internalType": "uint256",
+        "name": "totalBalance",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "productID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "brandID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct EcommerceBrandTokenReward.Product[]",
         "name": "products",
-        "type": "uint256[]"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -847,9 +869,26 @@ export const EcommerceAbi=[
     "name": "getUserPurchasedProducts",
     "outputs": [
       {
-        "internalType": "uint256[]",
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "productID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "brandID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct EcommerceBrandTokenReward.Product[]",
         "name": "",
-        "type": "uint256[]"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -945,6 +984,16 @@ export const EcommerceAbi=[
       {
         "internalType": "uint256",
         "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_loyalityReward",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deductAmount",
         "type": "uint256"
       }
     ],
@@ -1048,13 +1097,7 @@ export const EcommerceAbi=[
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_loyalityReward",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [],
     "name": "registerUser",
     "outputs": [
       {

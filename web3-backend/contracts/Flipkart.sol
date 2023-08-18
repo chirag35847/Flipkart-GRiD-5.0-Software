@@ -42,7 +42,7 @@ contract EcommerceBrandTokenReward {
         bool hasAccepted;
         uint256 reward;
     }
-    
+
     struct Brand {
         uint256 id;
         string name;
@@ -145,10 +145,9 @@ contract EcommerceBrandTokenReward {
 
     /**
      * @dev function to purchase the brand token
-     * @param _loyalityReward amount of the brand token
      */
 
-    function registerUser(uint256 _loyalityReward) public returns (bool) {
+    function registerUser() public returns (bool) {
         require(msg.sender != address(0), "Provide Valid Address");
         require(!isUser[msg.sender], "Already Exist User");
         userID = userID + 1;
@@ -158,10 +157,10 @@ contract EcommerceBrandTokenReward {
         users[msg.sender].numberOfRefferrels = 0;
         users[msg.sender].totalBalance = 0;
         require(
-            (rewardToken).transfer(msg.sender, _loyalityReward),
+            (rewardToken).transfer(msg.sender, 10*(10**18)),
             "Transfer Failed"
         );
-        users[msg.sender].totalLoyalityTokenBalance = _loyalityReward;
+        users[msg.sender].totalLoyalityTokenBalance += 10;
         isUser[msg.sender] = true;
 
         return true;
@@ -179,10 +178,11 @@ contract EcommerceBrandTokenReward {
         );
         uint256 balanceIncreased = users[msg.sender].totalLoyalityTokenBalance *
             2;
-        users[msg.sender].totalBalance += balanceIncreased;
+        
         LoyaltyToken(loyalityTokenAddress).burn(
             users[msg.sender].totalLoyalityTokenBalance
         );
+        users[msg.sender].totalBalance += balanceIncreased;
         users[msg.sender].totalLoyalityTokenBalance = 0;
     }
 
@@ -205,6 +205,7 @@ contract EcommerceBrandTokenReward {
         brandBalance[msg.sender][_brandId] += balanceIncreased;
         MintableToken(brandTokenAddress).burn(balanceIncreased);
         brandTokens[msg.sender][_brandId] = 0;
+        users[msg.sender].totalBalance += balanceIncreased;
         return true;
     }
 
@@ -255,7 +256,8 @@ contract EcommerceBrandTokenReward {
         uint256 _tokenReward,
         uint256 _productID,
         uint256 price,
-        uint256 _loyalityReward
+        uint256 _loyalityReward,
+        uint256 deductAmount
     ) public payable {
         require(price == msg.value, "Must send ether to purchase");
         require(isBrand[brands[_brandid].name], "Invalid brand");
@@ -281,6 +283,9 @@ contract EcommerceBrandTokenReward {
                 "Transfer Failed"
             );
             users[msg.sender].totalLoyalityTokenBalance += _loyalityReward;
+        }
+        if(deductAmount>0){
+            users[msg.sender].totalBalance -= deductAmount;
         }
     }
 
@@ -311,6 +316,7 @@ contract EcommerceBrandTokenReward {
             uint256 totalTokenRewards,
             uint256 numberOfRefferrels,
             uint256 totalLoyalityTokenBalance,
+            uint256 totalBalance,
             Product[] memory products
         )
     {
@@ -321,6 +327,7 @@ contract EcommerceBrandTokenReward {
             user.totalTokenRewards,
             user.numberOfRefferrels,
             user.totalLoyalityTokenBalance,
+            user.totalBalance,
             user.products
         );
     }

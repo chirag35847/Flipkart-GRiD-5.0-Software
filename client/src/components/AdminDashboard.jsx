@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import BackGradients from "./components/BackGradients";
-import { useUserDataContext } from "./contexts/UserContextProvider";
+import BackGradients from "./BackGradients";
+import { useUserDataContext } from "../contexts/UserContextProvider";
 
 const AdminDashboard = () => {
   const [percentage, setPercentage] = useState(0);

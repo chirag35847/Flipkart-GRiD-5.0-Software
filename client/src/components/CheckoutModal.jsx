@@ -19,18 +19,18 @@ const CheckoutModal = ({ productDetails, closeModal }) => {
         </button>
         <div className="flex items-center mb-4">
           <img
-            src={productDetails.dress[0].image}
-            alt={productDetails.dress[0].title}
+            src={productDetails.image}
+            alt={productDetails.title}
             className="w-24 h-24 object-contain rounded border border-gray-600 mr-4"
           />
           <div>
-            <p className="text-lg font-semibold">{productDetails.dress[0].title}</p>
-            <p className="text-sm text-gray-300">{productDetails.dress[0].description.slice(0, 150)}...</p>
-            <p className="text-lg font-semibold mt-3">${productDetails.dress[0].price}</p>
+            <p className="text-lg font-semibold">{productDetails.title}</p>
+            <p className="text-sm text-gray-300">{productDetails.description.slice(0, 150)}...</p>
+            <p className="text-lg font-semibold mt-3">${productDetails.price}</p>
           </div>
         </div>
 
-          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
+          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-2 rounded w-full transition-colors duration-300">
             Proceed to Checkout
           </button>
         </div>
