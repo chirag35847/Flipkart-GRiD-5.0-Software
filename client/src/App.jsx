@@ -59,7 +59,7 @@ function App() {
                 <RoadMap />
                 <Faq />
                 <Footer />
-                <BackGradients />
+                <BackGradients page="home" />
               </div>
             </>
           }

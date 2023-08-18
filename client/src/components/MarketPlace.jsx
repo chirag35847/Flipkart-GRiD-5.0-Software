@@ -73,7 +73,7 @@ const Marketplace = () => {
           ))}
         </div>
       </div>
-      <BackGradients />
+      <BackGradients page="market" />
       <Footer />
     </div>
   );

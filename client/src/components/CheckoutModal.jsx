@@ -1,7 +1,12 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
+import { useUserDataContext } from "../contexts/UserContextProvider";
 
 const CheckoutModal = ({ productDetails, closeModal }) => {
+  const {purchaseProduct} = useUserDataContext();
+  const checkOut=async()=>{
+    await purchaseProduct(1,productDetails.id,800);
+  }
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="modal-overlay fixed inset-0 bg-black opacity-70"></div>
@@ -25,7 +30,7 @@ const CheckoutModal = ({ productDetails, closeModal }) => {
           </div>
         </div>
 
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
+          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
             Proceed to Checkout
           </button>
         </div>

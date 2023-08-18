@@ -348,6 +348,7 @@ export const UserContextProvider = ({ children }) => {
     if (_price > brand?.basePrice) {
       let percentage = brand?.tokenPercentage;
       tokenReward = (_price * percentage) / 1000;
+      console.log("Token Rewad", tokenReward);
     }
     toast.update(id, {
       render: "Approving Transaction ...",
@@ -368,7 +369,8 @@ export const UserContextProvider = ({ children }) => {
       _brandid,
       tokenReward,
       _productID,
-      _price
+      _price,
+      { from: address, value: _price }
     );
     await transaction.wait(2);
     toast.update(id, {
@@ -452,7 +454,7 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   };
-  
+
   useEffect(() => {
     isTodayFestival();
   }, []);
@@ -466,6 +468,7 @@ export const UserContextProvider = ({ children }) => {
       setProducts(data);
     })();
     getUserFullDteails();
+    brandDetails(1);
   }, [signer, address]);
 
   return (
@@ -481,6 +484,7 @@ export const UserContextProvider = ({ children }) => {
         brandDetails,
         brandFullDetails,
         formatAddress,
+        purchaseProduct,
       }}
     >
       {children}
