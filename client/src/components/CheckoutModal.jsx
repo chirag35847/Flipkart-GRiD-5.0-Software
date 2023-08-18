@@ -30,7 +30,7 @@ const CheckoutModal = ({ productDetails, closeModal }) => {
           </div>
         </div>
 
-          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
+          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-2 rounded w-full transition-colors duration-300">
             Proceed to Checkout
           </button>
         </div>

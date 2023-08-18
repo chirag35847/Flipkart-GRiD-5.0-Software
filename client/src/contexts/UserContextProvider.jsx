@@ -70,31 +70,39 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const registerUserUsingNFTVerification = async (walletAddress) => {
-    let id = toast.loading("⏳ Minting NFT for You ...", {
-      theme: "dark",
-      autoClose: true,
-    });
+    
     try {
       let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
-      toast.update(id, {
-        render: "Making token URI ...!",
-        type: "success",
-        isLoading: true,
-        theme: "dark",
-        autoClose: true,
-      });
-      let tokenURI =
-        "https://gateway.pinata.cloud/ipfs/QmUFA3vw118FeGW61xfEU7mcZEt9sm2BMfqchERbq6BKCG";
-      let tx = await nftInstance.mintNFT(walletAddress, tokenURI);
-      await tx.wait(1);
+      let balance = await nftInstance.balanceOf(walletAddress);
+      balance = +balance.toString();
+      console.log(balance,"balance");
+      if (balance < 1) {
+        let id = toast.loading("⏳ Minting NFT for You ...", {
+          theme: "dark",
+          autoClose: true,
+        });
+        let tokenURI =
+          "https://gateway.pinata.cloud/ipfs/QmUFA3vw118FeGW61xfEU7mcZEt9sm2BMfqchERbq6BKCG";
+        let tx = await nftInstance.mintNFT(walletAddress, tokenURI);
+        await tx.wait(1);
+        toast.update(id, {
+          render: " NFT Unlocked 🔓 !",
+          type: "success",
+          isLoading: false,
+          theme: "dark",
+          autoClose: true,
+        });
+      }
 
-      await registerUser();
-      setConfetti(true);
-      setTimeout(() => {
-        setConfetti(false);
-      }, 5000);
-      await sleep(5000);
-      window.location.href = "/";
+      let res = await registerUser();
+      if (res) {
+        setConfetti(true);
+        setTimeout(() => {
+          setConfetti(false);
+        }, 5000);
+        await sleep(5000);
+        window.location.href = "/";
+      }
     } catch (error) {
       console.log(error);
     }
@@ -164,9 +172,12 @@ export const UserContextProvider = ({ children }) => {
       const brandBalances = [];
       for (let i = 1; i <= brandID; i++) {
         let brand = await contract.getBrandTokenBalance(address, i);
+        let brd = await brandDetails(i);
         brandBalances.push({
           id: i,
           balance: +brand.toString(),
+          name: brd.name,
+          symbol: brd.symbol,
         });
       }
       let user = {
@@ -216,7 +227,7 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  async function registerUser(_loyalityReward = 20) {
+  async function registerUser() {
     let id = toast.loading("⏳ Register User... ", {
       theme: "dark",
     });
@@ -231,7 +242,7 @@ export const UserContextProvider = ({ children }) => {
         _loyalityReward
       );
       await approveTx.wait(2);
-      const transaction = await contract.registerUser(_loyalityReward, {
+      const transaction = await contract.registerUser({
         from: address,
       });
       await transaction.wait(2);
@@ -243,6 +254,7 @@ export const UserContextProvider = ({ children }) => {
         icon: "✅",
         autoClose: true,
       });
+      return true;
     } catch (error) {
       toast.update(id, {
         render: "User Registered Already !",
@@ -252,6 +264,8 @@ export const UserContextProvider = ({ children }) => {
         icon: "❌",
         autoClose: true,
       });
+      console.log(error);
+      return false;
     }
   }
   function formatAddress(address) {
@@ -459,8 +473,21 @@ export const UserContextProvider = ({ children }) => {
     isTodayFestival();
   }, []);
 
+  useEffect(() => {
+    if (!signer) return;
+    (async () => {
+      let res = await fetch(
+        "https://snehagupta1907.github.io/data/product.json"
+      );
+      let data = await res.json();
+      console.log(data);
+      setProducts(data);
+    })();
+    getUserFullDteails();
+    brandDetails(1);
+  }, [signer, address]);
+
   // useEffect(() => {
-  //   if (!signer) return;
   //   (async () => {
   //     let res = await fetch("https://snehagupta1907.github.io/data/product.json");
   //     let data = await res.json();
@@ -469,18 +496,7 @@ export const UserContextProvider = ({ children }) => {
   //   })();
   //   getUserFullDteails();
   //   brandDetails(1);
-  // }, [signer, address]);
-
-  useEffect(() => {
-    (async () => {
-      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
-      let data = await res.json();
-      console.log(data);
-      setProducts(data);
-    })();
-    getUserFullDteails();
-    brandDetails(1);
-  }, []);
+  // }, []);
 
   return (
     <UserDataContext.Provider
@@ -496,6 +512,7 @@ export const UserContextProvider = ({ children }) => {
         brandFullDetails,
         formatAddress,
         purchaseProduct,
+        user,
       }}
     >
       {children}

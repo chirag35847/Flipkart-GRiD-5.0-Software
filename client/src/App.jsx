@@ -14,17 +14,20 @@ import { ToastContainer } from "react-toastify";
 import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
-import Dashboard from "./components/Dash2/Dashboard.jsx";
+
+
 import MarketPlace from "./components/MarketPlace";
 import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
-import Profile from "./components/UserProfile/Profile";
+
+
 
 import ProductDetails from "./components/ProductDetails";
 import CheckoutModal from "./components/CheckoutModal";
 import Payment from "./components/Payment";
-import AdminDashboard from "./AdminDashboard";
+import AdminDashboard from "./components/AdminDashboard";
 
 import RegisterUser from "./components/RegisterUser";
+import DashBoard from "./components/UserDash/DashBoard";
 
 function App() {
   return (
@@ -63,10 +66,10 @@ function App() {
             </>
           }
         />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+
         <Route exact path="/marketplace" element={<MarketPlace />} />
         <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
-        <Route exact path="/userProfile" element={<Profile />} />
+        <Route exact path="/dashboard" element={<DashBoard />} />
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route exact path="/checkout" element={<CheckoutModal />} />
