@@ -422,15 +422,15 @@ export const UserContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!signer) return;
     (async () => {
-      let res = await fetch("https://fakestoreapi.com/products");
+      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
       let data = await res.json();
       console.log(data);
       setProducts(data);
     })();
     getUserFullDteails();
-  }, [signer, address]);
+  }, []);
+
 
   return (
     <UserDataContext.Provider

@@ -1,6 +1,7 @@
 import React from 'react'
 import { RxCheck } from "react-icons/rx";
 import NavBar from './Navbar';
+import BackGradients from './BackGradients';
 
 const Payment = () => {
   return (

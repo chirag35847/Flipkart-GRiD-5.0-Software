@@ -12,9 +12,14 @@ const ProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${productId}`)
+    fetch(`https://snehagupta1907.github.io/data/product.json`)
       .then((response) => response.json())
-      .then((data) => setProductDetails(data))
+      .then((data) => {
+        console.log(data)
+        const product = data.find(item => item.dress[0].id.toString() === productId);
+        console.log(product);
+        setProductDetails(product);
+      })
       .catch((error) =>
         console.error("Error fetching product details:", error)
       );
@@ -30,7 +35,7 @@ const ProductDetails = () => {
     );
   }
 
-  const descriptionPoints = productDetails.description.split(". ");
+  const descriptionPoints = productDetails.dress[0].description.split(". ");
 
   return (
     <div className="bg-gradient-to-br from-black to-gray-600 min-h-fit text-white">
@@ -39,8 +44,8 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 py-8 md:py-16">
           <div className="product_images bg-cover bg-center flex justify-center items-center overflow-hidden transform hover:scale-105 transition-transform relative ">
             <img
-              src={productDetails.image}
-              alt={productDetails.title}
+              src={productDetails.dress[0].image}
+              alt={productDetails.dress[0].title}
               className="w-full md:rounded-md overflow-hidden"
               style={{ maxWidth: "70%", height: "60%" }}
             />
@@ -50,16 +55,16 @@ const ProductDetails = () => {
             style={{ backgroundColor: "#161616" }}
           >
             <h2 className="text-sm title-font text-gray-300 tracking-widest">
-              BRAND NAME
+              {productDetails.brandName}
             </h2>
             <h2 className="text-gray-400 text-4xl md:text-3xl title-font font-medium mb-1">
-              {productDetails.title}
+              {productDetails.dress[0].title}
             </h2>
             <div className="flex mb-4">
               <span className="flex items-center">
                 {[...Array(5)].map((_, index) => (
                   <span key={index}>
-                    {index < Math.floor(productDetails.rating.rate) ? (
+                    {index < Math.floor(productDetails.dress[0].rating.rate) ? (
                       <AiFillStar className="text-yellow-500"  />
                     ) : (
                       <AiOutlineStar className="text-yellow-500"  />
@@ -67,7 +72,7 @@ const ProductDetails = () => {
                   </span>
                 ))}
                 <span className="text-gray-600 ml-3">
-                  {productDetails.rating.count} Reviews
+                  {productDetails.dress[0].rating.count} Reviews
                 </span>
               </span>
             </div>
@@ -129,7 +134,7 @@ const ProductDetails = () => {
             </div>
             <div className="flex">
               <span className="title-font font-bold text-2xl text-white">
-                ${productDetails.price}
+                ${productDetails.dress[0].price}
               </span>
               <button
                 onClick={() => setIsModalOpen(true)}

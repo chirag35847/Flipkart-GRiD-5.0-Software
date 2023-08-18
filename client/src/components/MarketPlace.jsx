@@ -17,14 +17,15 @@ const Marketplace = () => {
     if (categoryFilter === "All") {
       return true;
     }
-    return product.category === categoryFilter;
+    return product.brandName === categoryFilter;
   });
 
   const sortedAndFilteredProducts = filteredProducts.slice().sort((productA, productB) => {
-    const priceA = parseFloat(productA.price);
-    const priceB = parseFloat(productB.price);
-    const ratingA = parseFloat(productA.rating.rate);
-    const ratingB = parseFloat(productB.rating.rate);
+    console.log({productA})
+    const priceA = parseFloat(productA.dress[0].price);
+    const priceB = parseFloat(productB.dress[0].price);
+    const ratingA = parseFloat(productA.dress[0].rating.rate);
+    const ratingB = parseFloat(productB.dress[0].rating.rate);
 
     if (sortOrder === "lowToHigh") {
       return priceA - priceB;
@@ -36,7 +37,7 @@ const Marketplace = () => {
   });
 
   return (
-    <div className="bg-gradient-to-b from-black to-gray-900 min-h-screen">
+    <div className="bg-gradient-to-b from-black to-gray-900 ">
       <ProductHome />
       <div className="mt-14 px-6">
         <div className="mt-14 px-6 flex items-center justify-between mb-4">
@@ -59,10 +60,11 @@ const Marketplace = () => {
             className="p-2 ml-4 rounded-md bg-gray-800 text-white"
           >
             <option value="All">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="jewelery">Jewelery</option>
-            <option value="men's clothing">Men's Clothing</option>
-            <option value="women's clothing">Women's Clothing</option>
+            <option value="Zara">Zara</option>
+              <option value="H&M">H&M</option>
+              <option value="Forever21">Forever21</option>
+              <option value="Shein">Shein</option>
+              <option value="Boohoo">Boohoo</option>
           </select>
           </div>
         </div>
@@ -73,7 +75,6 @@ const Marketplace = () => {
           ))}
         </div>
       </div>
-      <BackGradients />
       <Footer />
     </div>
   );
