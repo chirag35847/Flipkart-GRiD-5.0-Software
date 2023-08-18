@@ -5,7 +5,7 @@ const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const isMarketplacePage = location.pathname === "/marketplace"; // Check if it's the marketplace page
+  const isMarketplacePage = location.pathname === "/marketplace"; 
 
   return (
     <>
@@ -17,7 +17,7 @@ const NavBar = () => {
               alt="Logo"
               className="w-auto h-10 mx-2"
             />
-            <h1 className="font-md">Decentra 🛒 Shop</h1>
+            <h1 className="font-md">Decentra🛒Shop</h1>
           </Link>
         </div>
         {isHomePage && (

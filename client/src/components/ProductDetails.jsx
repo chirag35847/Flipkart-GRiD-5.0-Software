@@ -83,7 +83,7 @@ const ProductDetails = () => {
                 <span className="text-blue-400">In-Stock</span>
               </p>
               <p className="text-sm md:text-base">
-                Token ID: <span className="text-blue-400">{productId}</span>
+                Product ID: <span className="text-blue-400">{productId}</span>
               </p>
               <p className="text-sm md:text-base">
                 Tags:{" "}
