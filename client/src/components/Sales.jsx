@@ -8,9 +8,9 @@ const Sales = ({ product }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const truncatedTitle =
-    product.dress[0].title.length > 20 ? `${product.dress[0].title.substring(0, 20)}...` : product.dress[0].title;
+    product.title.length > 20 ? `${product.title.substring(0, 20)}...` : product.title;
 
-  const formattedRating = product.dress[0].rating.rate.toFixed(1);
+  const formattedRating = product.rating.rate.toFixed(1);
 
   const openModal = () => {
     setModalOpen(true);
@@ -26,8 +26,8 @@ const Sales = ({ product }) => {
         <div className="best-seller">
           <div className="best-p1 mb-4">
             <div className="image-container">
-              <Link to={`/marketplace/${product.dress[0].id}`}>
-                <img src={product.dress[0].image} alt="Product" className="expand-on-hover" />
+              <Link to={`/marketplace/${product.id}`}>
+                <img src={product.image} alt="Product" className="expand-on-hover" />
               </Link>
 
               <div className="rating-badge">
@@ -40,7 +40,7 @@ const Sales = ({ product }) => {
                 <p className="font-medium text-white mt-3 mb-2">{truncatedTitle}</p>
               </div>
               <div className="price">
-                ${product.dress[0].price}
+                ${product.price}
                 <div className="colors flex items-center gap-x-2">
                   <BsFillCircleFill className="red" />
                   <BsFillCircleFill className="blue" />

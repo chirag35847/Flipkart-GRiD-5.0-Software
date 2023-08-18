@@ -22,10 +22,10 @@ const Marketplace = () => {
 
   const sortedAndFilteredProducts = filteredProducts.slice().sort((productA, productB) => {
     console.log({productA})
-    const priceA = parseFloat(productA.dress[0].price);
-    const priceB = parseFloat(productB.dress[0].price);
-    const ratingA = parseFloat(productA.dress[0].rating.rate);
-    const ratingB = parseFloat(productB.dress[0].rating.rate);
+    const priceA = parseFloat(productA.price);
+    const priceB = parseFloat(productB.price);
+    const ratingA = parseFloat(productA.rating.rate);
+    const ratingB = parseFloat(productB.rating.rate);
 
     if (sortOrder === "lowToHigh") {
       return priceA - priceB;
