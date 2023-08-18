@@ -132,14 +132,11 @@ const DashBoard = () => {
         <div className="w-full px-4 py-2 bg-black lg:w-full h-full">
             <div className='flex flex-row'>
                 <div className='relative'>
-                        <div className='absolute' style={{top:'25vh',left:'0vw'}}>
-                            <h2 className='text-[1.25rem] text-white' style={{transform:'rotate(270deg)'}}>Your NFT</h2>
-                        </div>
-
-                        <div className='flex flex-row relative mt-[3vh] justify-between'>
+         
+                        <div className='flex flex-row relative mt-[13vh] justify-between'>
                             <div>
                                 <div className='relative'>
-                                    <Card padding={'lg'} radius={'md'} withBorder className='ml-[3vw]' h={'40vh'}>
+                                    <Card padding={'lg'} radius={'md'} withBorder className='ml-[2vw]' h={'40vh'}>
                                         <Card.Section p={12} pt={25}>
                                             <Image 
                                                 className='object-contain'
@@ -156,7 +153,7 @@ const DashBoard = () => {
                                             </div>
                                         </div>
                                         <Group position="center" mt="md" mb="xs">
-                                            <Text weight={'20vw'}>Flipkart Grid 5.0</Text>
+                                            <Text className='mb-5' weight={'20vw'}>Flipkart Grid 5.0 NFT</Text>
                                         </Group>
                                     </Card>
                                 </div>
@@ -165,7 +162,7 @@ const DashBoard = () => {
                         </div>
                 </div>
                 <div className='mt-[3vh] ml-[2vw]'>
-                    <div className="text-[#8BE8E5] font-semibold text-[3rem] mb-[1vh]">{selectedButton=='dash'?'Your Portfolio':selectedButton=='token'?'Your Token Portfolio':'Past Transactions'}</div>
+                    <div className="text-[#8BE8E5] font-semibold text-[3rem] mb-[1vh]">{selectedButton=='dash'?' Portfolio':selectedButton=='token'?'Brand Token Portfolio':'Past Transactions'}</div>
                     <ScrollArea h={'85vh'} w={'50vw'} className=''>
                         {
                             selectedButton=='dash'?<Information></Information>:
