@@ -2,7 +2,7 @@ import { SimpleGrid, Space } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useUserDataContext } from "../../contexts/UserContextProvider";
 import TokenCard from "./TokenCard";
-
+import numeral from "numeral";
 const Token = () => {
   const { user } = useUserDataContext();
 
@@ -18,7 +18,12 @@ const Token = () => {
       {user ? (
         user.brandBalances.map((item, index) => {
           return (
-            <TokenCard key={index} title={item.name} value={item.balance} />
+            <TokenCard
+              key={index}
+              title={item.name}
+              brandID={item.id}
+              value={numeral(item.balance).format("0.0a")}
+            />
           );
         })
       ) : (

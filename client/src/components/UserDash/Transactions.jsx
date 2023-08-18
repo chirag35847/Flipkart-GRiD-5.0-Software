@@ -1,66 +1,99 @@
-import { DataTable } from 'mantine-datatable'
-import React, { useEffect, useState } from 'react'
-import sortBy from 'lodash/sortBy'
-import { ActionIcon, Space } from '@mantine/core';
-import { IconEdit } from '@tabler/icons-react';
+import React, { useEffect, useState } from "react";
 
+import { useUserDataContext } from "../../contexts/UserContextProvider";
 const Transactions = () => {
-    const [records,setRecords] = useState([
-        {productName:'Something1',txid:'ihbrifiuerhfiuhhiu',date:'01/08/2010',price:'5000',tokensEarned:'4',loyalityTokensEarned:'5'},
+  const { user } = useUserDataContext();
+  console.log(user);
+  return (
+    <>
+      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+        <div class="inline-block min-w-full shadow-md rounded-lg">
+          <table class="w-full leading-normal">
+            <thead>
+              <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  Brand Name
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  Amount Paid
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  Timestamp
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  Loyality Tokens
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  Brand Tokens
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-normal text-gray-700 uppercase tracking-wider">
+                  View Trx
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <div class="flex">
+                    <div class="ml-3">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Molly Sanders
+                      </p>
+                      <p class="text-gray-600 whitespace-no-wrap">000004</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">$20,000</p>
+                  <p class="text-gray-600 whitespace-no-wrap">USD</p>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-center">
+                  10
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-center">
+                  10
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-right">
+                  <a href="/">View</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <div class="flex">
+                    <div class="ml-3">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Molly Sanders
+                      </p>
+                      <p class="text-gray-600 whitespace-no-wrap">000004</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">$20,000</p>
+                  <p class="text-gray-600 whitespace-no-wrap">USD</p>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-center">
+                  10
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-center">
+                  10
+                </td>
+                <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-right">
+                  <a href="/">View</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+};
 
-    ])
-    const [sortStatus,setSortStatus] = useState({ columnAccessor: 'id', direction: 'asc' });
-
-    useEffect(()=>{
-      const data = sortBy(records,sortStatus.columnAccessor);
-      setRecords(sortStatus.direction==='desc'?data.reverse():data);
-    },[sortStatus]);
-  
-    return (
-            <div className='h-[90vh]'>
-                <DataTable
-                borderRadius={15}
-                highlightOnHover
-                onSortStatusChange={setSortStatus}
-                sortStatus={sortStatus}
-                className='h-[70vh] bg-[#1a1b1e] m-auto'
-                records={records}
-                columns={[
-                    {
-                        accessor:'productName',
-                        title:'Product Name'
-                    },
-                    {
-                        accessor:'date',
-                        title:'Date',
-                    },
-                    {
-                        accessor:"price",
-                        title:'Purchase Amount',
-                    },
-                    {
-                        accessor:"tokensEarned",
-                        title:'Tokens Earned',
-                    },
-                    {
-                        accessor:'loyalityTokensEarned',
-                        title:'Loyality Tokens Earned',
-                    }
-        
-                ].concat([
-                    {
-                    accessor: "actions",
-                    title: "",
-                    render: (record) => (
-                        <ActionIcon color="blue">
-                            <IconEdit size={16} />
-                        </ActionIcon>
-                    ),
-                    },
-                ])}
-                />
-            </div>
-    )
-}
-
-export default Transactions
+export default Transactions;

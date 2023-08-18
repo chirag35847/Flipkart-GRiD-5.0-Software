@@ -70,12 +70,11 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const registerUserUsingNFTVerification = async (walletAddress) => {
-    
     try {
       let nftInstance = await getContractInstance(NFTAddress, NFTAbi);
       let balance = await nftInstance.balanceOf(walletAddress);
       balance = +balance.toString();
-      console.log(balance,"balance");
+      console.log(balance, "balance");
       if (balance < 1) {
         let id = toast.loading("⏳ Minting NFT for You ...", {
           theme: "dark",
@@ -187,8 +186,9 @@ export const UserContextProvider = ({ children }) => {
         numberOfRefferrels: +userData["numberOfRefferrels"].toString(),
         totalLoyalityTokenBalance:
           +userData["totalLoyalityTokenBalance"].toString(),
-        products: userData["id"],
+        products: userData["products"],
         brandBalances,
+        totalBalance: +userData["totalBalance"].toString(),
       };
       setUser(user);
     } catch (error) {
@@ -237,9 +237,10 @@ export const UserContextProvider = ({ children }) => {
       LoyalityTokenABI
     );
     try {
+      const DECIMAL = BigNumber.from(10).pow(18);
       let approveTx = await tokenContract.approve(
         EcommerceAddress,
-        _loyalityReward
+        BigNumber.from(10).mul(DECIMAL)
       );
       await approveTx.wait(2);
       const transaction = await contract.registerUser({
@@ -352,44 +353,73 @@ export const UserContextProvider = ({ children }) => {
     }
   }
   async function purchaseProduct(_brandid, _productID, _price) {
-    let id = toast.loading("⏳ Preparing your product... ", {
+    let id = toast.loading("Preparing your product... ", {
       theme: "dark",
     });
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+    _price = Math.round(_price);
 
     const brand = await brandDetails(_brandid);
+    const { totalBalance } = user;
+    let deductAmount = 0;
     let tokenReward = 0;
-    if (_price > brand?.basePrice) {
-      let percentage = brand?.tokenPercentage;
-      tokenReward = (_price * percentage) / 1000;
-      console.log("Token Rewad", tokenReward);
+    if (totalBalance > 100) {
+      deductAmount = 100;
+      _price = _price - deductAmount;
     }
-    toast.update(id, {
-      render: "Approving Transaction ...",
-      type: "success",
-      isLoading: true,
-      theme: "dark",
-      icon: "⏳",
-      autoClose: true,
-    });
-    const tokenContract = await getContractInstance(
-      brand?.brandAddress,
-      LoyalityTokenABI
-    );
+    let _loyalityReward = 0;
+    if (isTodayFestival()) {
+      _loyalityReward = 5;
+      const tokenContract = await getContractInstance(
+        LoyalityTokenAddress,
+        LoyalityTokenABI
+      );
+      let approveTx = await tokenContract.approve(
+        EcommerceAddress,
+        _loyalityReward
+      );
+      await approveTx.wait(2);
+    }
+    if (_price > brand?.basePrice) {
+      console.log("yesGot", _price, brand?.basePrice);
+      let percentage = brand?.tokenPercentage;
+      tokenReward = Math.round((_price * percentage) / 1000);
+      console.log("tokenReward", tokenReward);
+      const tokenContract = await getContractInstance(
+        brand?.brandAddress,
+        LoyalityTokenABI
+      );
 
-    let approveTx = await tokenContract.approve(EcommerceAddress, tokenReward);
-    await approveTx.wait(2);
+      let approveTx = await tokenContract.approve(
+        EcommerceAddress,
+        tokenReward
+      );
+
+      toast.update(id, {
+        render: "Approving Transaction ...",
+        type: "success",
+        isLoading: true,
+        theme: "dark",
+        icon: "⏳",
+        autoClose: true,
+      });
+
+      await approveTx.wait(2);
+    }
+
     const transaction = await contract.purchase(
       _brandid,
       tokenReward,
       _productID,
       _price,
+      _loyalityReward,
+      deductAmount,
       { from: address, value: _price }
     );
     await transaction.wait(2);
     toast.update(id, {
       render: tokenReward
-        ? `You Got rewards on your purchase item ${tokenReward}`
+        ? `You Got ${tokenReward}  token reward on your purchase item `
         : "Product Purchased !",
       type: "success",
       isLoading: false,
@@ -397,6 +427,7 @@ export const UserContextProvider = ({ children }) => {
       icon: "✅",
       autoClose: true,
     });
+    window.location.href = "/dashboard";
     try {
     } catch (error) {
       console.log(error);
@@ -513,6 +544,7 @@ export const UserContextProvider = ({ children }) => {
         formatAddress,
         purchaseProduct,
         user,
+        claimBrandTokens
       }}
     >
       {children}

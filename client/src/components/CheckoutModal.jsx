@@ -5,7 +5,7 @@ import { useUserDataContext } from "../contexts/UserContextProvider";
 const CheckoutModal = ({ productDetails, closeModal }) => {
   const {purchaseProduct} = useUserDataContext();
   const checkOut=async()=>{
-    await purchaseProduct(1,productDetails.id,800);
+    await purchaseProduct(productDetails.brandId,productDetails.id,productDetails.price);
   }
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
