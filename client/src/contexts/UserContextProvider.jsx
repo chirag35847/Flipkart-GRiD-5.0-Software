@@ -348,6 +348,7 @@ export const UserContextProvider = ({ children }) => {
     if (_price > brand?.basePrice) {
       let percentage = brand?.tokenPercentage;
       tokenReward = (_price * percentage) / 1000;
+      console.log("Token Rewad", tokenReward);
     }
     toast.update(id, {
       render: "Approving Transaction ...",
@@ -368,7 +369,8 @@ export const UserContextProvider = ({ children }) => {
       _brandid,
       tokenReward,
       _productID,
-      _price
+      _price,
+      { from: address, value: _price }
     );
     await transaction.wait(2);
     toast.update(id, {
@@ -452,21 +454,33 @@ export const UserContextProvider = ({ children }) => {
       });
     }
   };
-  
+
   useEffect(() => {
     isTodayFestival();
   }, []);
 
+  // useEffect(() => {
+  //   if (!signer) return;
+  //   (async () => {
+  //     let res = await fetch("https://snehagupta1907.github.io/data/product.json");
+  //     let data = await res.json();
+  //     console.log(data);
+  //     setProducts(data);
+  //   })();
+  //   getUserFullDteails();
+  //   brandDetails(1);
+  // }, [signer, address]);
+
   useEffect(() => {
-    if (!signer) return;
     (async () => {
-      let res = await fetch("https://fakestoreapi.com/products");
+      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
       let data = await res.json();
       console.log(data);
       setProducts(data);
     })();
     getUserFullDteails();
-  }, [signer, address]);
+    brandDetails(1);
+  }, []);
 
   return (
     <UserDataContext.Provider
@@ -481,6 +495,7 @@ export const UserContextProvider = ({ children }) => {
         brandDetails,
         brandFullDetails,
         formatAddress,
+        purchaseProduct,
       }}
     >
       {children}

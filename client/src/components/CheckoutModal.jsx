@@ -1,7 +1,12 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
+import { useUserDataContext } from "../contexts/UserContextProvider";
 
 const CheckoutModal = ({ productDetails, closeModal }) => {
+  const {purchaseProduct} = useUserDataContext();
+  const checkOut=async()=>{
+    await purchaseProduct(1,productDetails.id,800);
+  }
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="modal-overlay fixed inset-0 bg-black opacity-70"></div>
@@ -14,18 +19,18 @@ const CheckoutModal = ({ productDetails, closeModal }) => {
         </button>
         <div className="flex items-center mb-4">
           <img
-            src={productDetails.image}
-            alt={productDetails.title}
+            src={productDetails.dress[0].image}
+            alt={productDetails.dress[0].title}
             className="w-24 h-24 object-contain rounded border border-gray-600 mr-4"
           />
           <div>
-            <p className="text-lg font-semibold">{productDetails.title}</p>
-            <p className="text-sm text-gray-300">{productDetails.description.slice(0, 150)}...</p>
-            <p className="text-lg font-semibold mt-3">${productDetails.price}</p>
+            <p className="text-lg font-semibold">{productDetails.dress[0].title}</p>
+            <p className="text-sm text-gray-300">{productDetails.dress[0].description.slice(0, 150)}...</p>
+            <p className="text-lg font-semibold mt-3">${productDetails.dress[0].price}</p>
           </div>
         </div>
 
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
+          <button onClick={checkOut} className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 rounded w-full transition-colors duration-300">
             Proceed to Checkout
           </button>
         </div>

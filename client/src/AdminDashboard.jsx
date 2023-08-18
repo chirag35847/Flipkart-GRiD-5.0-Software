@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   };
   return (
     <>
-      <BackGradients />
+      <BackGradients page="admin" />
       <div
         className="flex h-screen "
  

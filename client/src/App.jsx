@@ -20,7 +20,6 @@ import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 import Profile from "./components/UserProfile/Profile";
 
 import ProductDetails from "./components/ProductDetails";
-import Checkout from "./components/CheckoutModal";
 import CheckoutModal from "./components/CheckoutModal";
 import Payment from "./components/Payment";
 import AdminDashboard from "./AdminDashboard";
@@ -60,7 +59,7 @@ function App() {
                 <RoadMap />
                 <Faq />
                 <Footer />
-                <BackGradients />
+                <BackGradients page="home" />
               </div>
             </>
           }

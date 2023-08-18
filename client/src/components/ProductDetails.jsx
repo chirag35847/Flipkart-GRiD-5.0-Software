@@ -12,9 +12,14 @@ const ProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${productId}`)
+    fetch(`https://snehagupta1907.github.io/data/product.json`)
       .then((response) => response.json())
-      .then((data) => setProductDetails(data))
+      .then((data) => {
+        console.log(data)
+        const product = data.find(item => item.id.toString() === productId);
+        console.log(product);
+        setProductDetails(product);
+      })
       .catch((error) =>
         console.error("Error fetching product details:", error)
       );
@@ -50,7 +55,7 @@ const ProductDetails = () => {
             style={{ backgroundColor: "#161616" }}
           >
             <h2 className="text-sm title-font text-gray-300 tracking-widest">
-              BRAND NAME
+              {productDetails.brandName}
             </h2>
             <h2 className="text-gray-400 text-4xl md:text-3xl title-font font-medium mb-1">
               {productDetails.title}

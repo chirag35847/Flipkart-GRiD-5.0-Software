@@ -21,6 +21,12 @@ contract EcommerceBrandTokenReward {
     event Referred(address indexed referrer, address indexed referee);
     event Accepted(address indexed referee, uint256 reward);
 
+    struct Product {
+        uint256 productID;
+        uint256 timestamp;
+        uint256 brandID;
+    }
+
     struct User {
         uint256 id;
         uint256 totalEtherSpent;
@@ -28,13 +34,15 @@ contract EcommerceBrandTokenReward {
         uint256 numberOfRefferrels;
         uint256 totalLoyalityTokenBalance;
         uint256 totalBalance;
-        uint256[] products;
+        Product[] products;
     }
+
     struct Referral {
         address referrer;
         bool hasAccepted;
         uint256 reward;
     }
+    
     struct Brand {
         uint256 id;
         string name;
@@ -115,10 +123,10 @@ contract EcommerceBrandTokenReward {
      * @param _brandId id of the brand
      */
 
-    function changeBasePrice(
-        uint256 _baseAmount,
-        uint256 _brandId
-    ) public onlyBrandAdmin {
+    function changeBasePrice(uint256 _baseAmount, uint256 _brandId)
+        public
+        onlyBrandAdmin
+    {
         brands[_brandId].basePrice = _baseAmount;
     }
 
@@ -128,10 +136,10 @@ contract EcommerceBrandTokenReward {
      * @param _brandId id of the brand
      */
 
-    function changePercentage(
-        uint256 _basePercentage,
-        uint256 _brandId
-    ) public onlyBrandAdmin {
+    function changePercentage(uint256 _basePercentage, uint256 _brandId)
+        public
+        onlyBrandAdmin
+    {
         brands[_brandId].tokenPercentage = _basePercentage;
     }
 
@@ -169,7 +177,8 @@ contract EcommerceBrandTokenReward {
             users[msg.sender].totalLoyalityTokenBalance > 0,
             "No Loyality Tokens Are There"
         );
-        uint balanceIncreased = users[msg.sender].totalLoyalityTokenBalance * 2;
+        uint256 balanceIncreased = users[msg.sender].totalLoyalityTokenBalance *
+            2;
         users[msg.sender].totalBalance += balanceIncreased;
         LoyaltyToken(loyalityTokenAddress).burn(
             users[msg.sender].totalLoyalityTokenBalance
@@ -184,15 +193,15 @@ contract EcommerceBrandTokenReward {
      * @return bool
      */
 
-    function claimBrandTokens(
-        address brandTokenAddress,
-        uint _brandId
-    ) public returns (bool) {
+    function claimBrandTokens(address brandTokenAddress, uint256 _brandId)
+        public
+        returns (bool)
+    {
         require(
             brandTokens[msg.sender][_brandId] > 0,
             "No Brnad Tokens Are There"
         );
-        uint balanceIncreased = brandTokens[msg.sender][_brandId];
+        uint256 balanceIncreased = brandTokens[msg.sender][_brandId];
         brandBalance[msg.sender][_brandId] += balanceIncreased;
         MintableToken(brandTokenAddress).burn(balanceIncreased);
         brandTokens[msg.sender][_brandId] = 0;
@@ -245,7 +254,8 @@ contract EcommerceBrandTokenReward {
         uint256 _brandid,
         uint256 _tokenReward,
         uint256 _productID,
-        uint price
+        uint256 price,
+        uint256 _loyalityReward
     ) public payable {
         require(price == msg.value, "Must send ether to purchase");
         require(isBrand[brands[_brandid].name], "Invalid brand");
@@ -255,11 +265,23 @@ contract EcommerceBrandTokenReward {
 
         emit Purchase(msg.sender, _brandid, msg.value);
         emit ReceivedReward(msg.sender, _brandid, _tokenReward);
-        users[msg.sender].products.push(_productID);
+        Product memory _product = Product({
+            productID: _productID,
+            timestamp: block.timestamp,
+            brandID: _brandid
+        });
+        users[msg.sender].products.push(_product);
         MintableToken(brands[_brandid].brandAddress).transfer(
             msg.sender,
             _tokenReward
         );
+        if (_loyalityReward > 0) {
+            require(
+                (rewardToken).transfer(msg.sender, _loyalityReward),
+                "Transfer Failed"
+            );
+            users[msg.sender].totalLoyalityTokenBalance += _loyalityReward;
+        }
     }
 
     /**
@@ -268,10 +290,11 @@ contract EcommerceBrandTokenReward {
      * @param _brandid id of the brand
      * @return uint256
      */
-    function getBrandTokenBalance(
-        address _user,
-        uint256 _brandid
-    ) public view returns (uint256) {
+    function getBrandTokenBalance(address _user, uint256 _brandid)
+        public
+        view
+        returns (uint256)
+    {
         return brandTokens[_user][_brandid];
     }
 
@@ -279,9 +302,7 @@ contract EcommerceBrandTokenReward {
      * @dev function to get the user details
      * @param _userAddress address of the user
      */
-    function getUserDetails(
-        address _userAddress
-    )
+    function getUserDetails(address _userAddress)
         public
         view
         returns (
@@ -290,7 +311,7 @@ contract EcommerceBrandTokenReward {
             uint256 totalTokenRewards,
             uint256 numberOfRefferrels,
             uint256 totalLoyalityTokenBalance,
-            uint256[] memory products
+            Product[] memory products
         )
     {
         User memory user = users[_userAddress];
@@ -308,19 +329,17 @@ contract EcommerceBrandTokenReward {
      * @dev function to get the brand details
      * @param _brandId id of the brand
      */
-    function getBrandDetails(
-        uint256 _brandId
-    )
+    function getBrandDetails(uint256 _brandId)
         public
         view
         returns (
-             uint256 id,
-        string memory name,
-        string memory symbol,
-        uint256 tokenPercentage,
-        address brandAddress,
-        address brandOwner,
-        uint256 basePrice
+            uint256 id,
+            string memory name,
+            string memory symbol,
+            uint256 tokenPercentage,
+            address brandAddress,
+            address brandOwner,
+            uint256 basePrice
         )
     {
         Brand memory brand = brands[_brandId];
@@ -341,10 +360,11 @@ contract EcommerceBrandTokenReward {
      * @param _brandId id of the brand
      * @return uint256
      */
-    function getUserBrandBalance(
-        address _user,
-        uint256 _brandId
-    ) public view returns (uint256) {
+    function getUserBrandBalance(address _user, uint256 _brandId)
+        public
+        view
+        returns (uint256)
+    {
         return brandTokens[_user][_brandId];
     }
 
@@ -358,9 +378,11 @@ contract EcommerceBrandTokenReward {
     }
 
     // 7. Get a user's purchased product IDs
-    function getUserPurchasedProducts(
-        address _user
-    ) public view returns (uint256[] memory) {
+    function getUserPurchasedProducts(address _user)
+        public
+        view
+        returns (Product[] memory)
+    {
         return users[_user].products;
     }
 }
