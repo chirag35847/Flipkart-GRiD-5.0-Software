@@ -18,22 +18,27 @@ const Information = () => {
       <InformationCard
         title={"Total Ether Spent"}
         value={numeral(user?.totalEtherSpent).format("0.0a")}
+        displayButton={false}
       />
       <InformationCard
         title={"Total Token Rewards"}
         value={numeral(user?.totalTokenRewards).format("0.0a")}
+        displayButton={false}
       />
       <InformationCard
         title={"Number of Refferals"}
         value={numeral(user?.numberOfRefferrels).format("0.0a")}
+        displayButton={false}
       />
       <InformationCard
         title={"Total Loyality Tokens"}
         value={numeral(user?.totalLoyalityTokenBalance).format("0.0a")}
+        displayButton={true}
       />
        <InformationCard
         title={"Total Balance"}
         value={numeral(user?.totalBalance).format("0.0a")}
+        displayButton={false}
       />
     </SimpleGrid>
   );
