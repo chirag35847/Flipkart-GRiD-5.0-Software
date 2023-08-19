@@ -494,7 +494,7 @@ export const UserContextProvider = ({ children }) => {
         autoClose: true,
       });
       await sleep(1000);
-      window.location.href = "/dashboard";
+      window.location.href = "/user-dashboard";
     } catch (error) {
       toast.update(id, {
         render: "Claimed Failed !",
@@ -529,6 +529,8 @@ export const UserContextProvider = ({ children }) => {
         icon: "✅",
         autoClose: true,
       });
+      await sleep(1000);
+      window.location.href = "/user-dashboard";
     } catch (error) {
       toast.update(id, {
         render: "Claimed Failed !",

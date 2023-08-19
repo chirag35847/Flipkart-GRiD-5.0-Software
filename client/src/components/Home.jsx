@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import TextTransition, { presets } from "react-text-transition";
 import { Link } from "react-router-dom";
+import { useUserDataContext } from "../contexts/UserContextProvider";
 const Home = () => {
   const TEXTS = [
     "NFTs",
@@ -29,6 +30,7 @@ const Home = () => {
     );
     return () => clearTimeout(intervalId);
   }, []);
+  const { verified } = useUserDataContext();
   return (
     <div
       className="flex text-center justify-center items-center flex-col pt-[120px] "
@@ -62,9 +64,13 @@ const Home = () => {
             Shop with Tokens, Trust the Process,
           </p>
         </div>
-        <button className="text-white back-main px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-blue-400 active:bg-blue-500 transition-all">
-          <Link to="/auth">Let's Connect</Link>
-        </button>
+        {verified ? <button className="text-white back-main px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-blue-400 active:bg-blue-500 transition-all">
+            <Link to="/marketplace">Welcome to Decentra-Store</Link>
+          </button>  : (
+          <button className="text-white back-main px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-blue-400 active:bg-blue-500 transition-all">
+            <Link to="/auth">Let's Connect</Link>
+          </button>
+        )}
       </div>
     </div>
   );
