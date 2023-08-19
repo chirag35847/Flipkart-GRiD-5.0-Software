@@ -41,7 +41,7 @@ const AdminDashboard = () => {
     <>
       <BackGradients page="admin" />
       <div
-        className="flex h-screen "
+        className="flex flex-col lg:flex-row"
  
       >
         <div className="px-4 py-2 bg-black lg:w-1/4">
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
             </ul>
           </div>
         </div>
-        <div className="w-full px-4 py-2 bg-black lg:w-full h-full">
+        <div className="w-full px-4 py-2 bg-black">
           <div className="container mx-auto mt-12">
             <div className="grid gap-4 lg:grid-cols-3 mt-10">
               <div className="flex items-center px-4 py-6  backdrop-blur-lg border  rounded-md shadow-md">
