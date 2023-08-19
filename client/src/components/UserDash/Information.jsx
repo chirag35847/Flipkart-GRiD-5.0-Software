@@ -20,6 +20,8 @@ const Information = () => {
       <InformationCard
         title={"Total Dollar Spent"}
         value={"$ " + numeral(user?.totalEtherSpent).format("0.0a")}
+        displayButton={false}
+        icon={<IconCurrencyEthereum className="w-10 h-10" color="white"/>}
       />
       <InformationCard
         title={"Total Token Rewards"}
