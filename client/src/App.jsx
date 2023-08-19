@@ -17,7 +17,6 @@ import Authscreen from "./components/Authscreen";
 
 
 import MarketPlace from "./components/MarketPlace";
-import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
 
 
@@ -69,7 +68,6 @@ function App() {
         />
 
         <Route exact path="/marketplace" element={<MarketPlace />} />
-        <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
         <Route exact path="/user-dashboard" element={<DashBoard />} />
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
