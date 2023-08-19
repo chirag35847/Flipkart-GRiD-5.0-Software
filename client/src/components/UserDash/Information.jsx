@@ -7,7 +7,6 @@ import {IconAward,IconBuildingBank, IconCoins,IconCurrencyEthereum,IconCurrencyB
 
 const Information = () => {
   const { user } = useUserDataContext();
-  console.log("user", user);
   return (
     <SimpleGrid
       breakpoints={[
