@@ -15,10 +15,7 @@ import RoadMap from "./components/RoadMap";
 import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 
-
 import MarketPlace from "./components/MarketPlace";
-
-
 
 import ProductDetails from "./components/ProductDetails";
 import CheckoutModal from "./components/CheckoutModal";
@@ -27,10 +24,14 @@ import AdminDashboard from "./components/AdminDashboard";
 
 import RegisterUser from "./components/RegisterUser";
 import DashBoard from "./components/UserDash/DashBoard";
+import { useUserDataContext } from "./contexts/UserContextProvider";
 import NotFound from "./components/404/NotFound";
+
 import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
+
 function App() {
+  const { verified } = useUserDataContext();
   return (
     <>
       <ToastContainer
@@ -69,14 +70,18 @@ function App() {
         />
 
         <Route exact path="/marketplace" element={<MarketPlace />} />
-        <Route exact path="/user-dashboard" element={<DashBoard />} />
+
         <Route exact path="/brandDashboard" element={<BrandsDashboard/>}/>
+
         <Route exact path="/adminpage" element={<AdminDashboard />} />
+        {verified ? (
+          <Route exact path="/user-dashboard" element={<DashBoard />} />
+        ) : null}
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route exact path="/checkout" element={<CheckoutModal />} />
-        <Route exact path="/payment" element={<Payment/>} />
+        <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/register-user" element={<RegisterUser />} />
-        <Route exact path="/notFound" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

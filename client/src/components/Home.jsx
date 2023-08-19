@@ -55,7 +55,7 @@ const Home = () => {
         <div className="txt-ternary-light capitalize w-[50%] mobile:w-[80%] mx-auto lg:text-[20px] mt-3 md:flex-row flex mobile:flex-col mobile:items-center justify-center">
           <div></div>
         </div>
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <p className="text-orange-400 ">
             Beyond Shopping: Tokenize Your Transactions,
           </p>
@@ -63,7 +63,7 @@ const Home = () => {
           <p className="text-green-400 ">
             Shop with Tokens, Trust the Process,
           </p>
-        </div>
+        </div> */}
         {verified ? <button className="text-white back-main px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-blue-400 active:bg-blue-500 transition-all">
             <Link to="/marketplace">Welcome to Decentra-Store</Link>
           </button>  : (

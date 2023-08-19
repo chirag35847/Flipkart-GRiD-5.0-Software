@@ -445,6 +445,9 @@ export const UserContextProvider = ({ children }) => {
       await approveTx.wait(2);
     }
 
+    let uid = toast.loading("Confirming your product ", {
+      theme: "dark",
+    });
     const transaction = await contract.purchase(
       _brandid,
       tokenReward,
@@ -455,7 +458,7 @@ export const UserContextProvider = ({ children }) => {
       { from: address, value: _price }
     );
     await transaction.wait(2);
-    toast.update(id, {
+    toast.update(uid, {
       render: tokenReward
         ? `You Got ${tokenReward}  token reward on your purchase item `
         : "Product Purchased !",
@@ -555,7 +558,7 @@ export const UserContextProvider = ({ children }) => {
       );
       let data = await res.json();
       setProducts(data);
-      let contract= await getContractInstance(EcommerceAddress,EcommerceAbi);
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
       let userExist = await contract.isUser(address);
       setVerified(userExist);
     })();
@@ -590,7 +593,7 @@ export const UserContextProvider = ({ children }) => {
         user,
         claimBrandTokens,
         claimLoyalityTokens,
-        formatTimestamp
+        formatTimestamp,
       }}
     >
       {children}
