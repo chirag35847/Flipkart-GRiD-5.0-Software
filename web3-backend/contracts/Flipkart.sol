@@ -6,7 +6,6 @@ import {MintableToken} from "./BrandToken.sol";
 contract EcommerceBrandTokenReward {
     address public owner;
     LoyaltyToken private rewardToken;
-
     mapping(uint256 => Brand) private brands;
     mapping(address => mapping(uint256 => uint256)) private brandTokens;
     mapping(address => mapping(uint256 => uint256)) public brandBalance;
@@ -95,7 +94,7 @@ contract EcommerceBrandTokenReward {
         string memory _brandSymbol,
         uint256 _tokenPercentage,
         uint256 _basePrice
-    ) public onlyOwner {
+    ) public onlyOwner  {
         require(!isBrand[_brandName], "Your Brand Already Exist !!!");
         MintableToken mintableAddress = new MintableToken(
             _brandName,
@@ -251,6 +250,7 @@ contract EcommerceBrandTokenReward {
      * @param _productID id of the product
      * @param price price of the product
      */
+
     function purchase(
         uint256 _brandid,
         uint256 _tokenReward,

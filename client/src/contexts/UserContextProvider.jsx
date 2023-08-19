@@ -21,7 +21,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     setActiveChainId(chain?.id);
   }, [chain?.id]);
-  const { address } = useAccount();
+  const { address, isDisconnected } = useAccount();
   const signer = useEthersSigner(activeChain);
   const [verified, setVerified] = useState(false);
   const [confetti, setConfetti] = useState(false);
@@ -29,6 +29,7 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [brandFullDetails, setBrandFullDetails] = useState({});
   const [festival, setFestival] = useState(null);
+  const [owner,setOwner] = useState(false);
   const festivalDates = {
     "2023-01-01": "New Year's Day",
     "2023-02-14": "Valentine's Day",
@@ -253,7 +254,7 @@ export const UserContextProvider = ({ children }) => {
       );
       await transaction.wait(2);
       toast.update(id, {
-        render: "Brand Registered !",
+        render: "Brand Registered Successfully !",
         type: "success",
         isLoading: false,
         theme: "dark",
@@ -434,9 +435,9 @@ export const UserContextProvider = ({ children }) => {
       );
 
       toast.update(id, {
-        render: "Approving Transaction ...",
+        render: "Transaction Approved ",
         type: "success",
-        isLoading: true,
+        isLoading: false,
         theme: "dark",
         icon: "⏳",
         autoClose: true,
@@ -469,7 +470,7 @@ export const UserContextProvider = ({ children }) => {
       autoClose: true,
     });
     await sleep(3000);
-    window.location.href = "/user-dashboard";
+    window.location.href = "/payment";
     try {
     } catch (error) {
       console.log(error);
@@ -610,30 +611,32 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    (async () => {
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+      let _owner = await contract.owner();
+      let isOwner = _owner===address;
+      console.log(isOwner);
+      setOwner(isOwner);
+      let userExist = await contract.isUser(address);
+      setVerified(userExist);
+    })();
+  }, [signer, address, isDisconnected]);
+
+
+  useEffect(() => {
     if (!signer) return;
+    getUserFullDteails();
+    // getReferAddresses();
+  }, [signer, address]);
+
+  useEffect(() => {
     (async () => {
       let res = await fetch(
         "https://snehagupta1907.github.io/data/product.json"
       );
       let data = await res.json();
       setProducts(data);
-      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
-      let userExist = await contract.isUser(address);
-      setVerified(userExist);
     })();
-    getUserFullDteails();
-    getReferAddresses();
-  }, [signer, address]);
-
-  useEffect(() => {
-    (async () => {
-      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
-      let data = await res.json();
-      console.log(data);
-      setProducts(data);
-    })();
-    getUserFullDteails();
-    brandDetails(1);
   }, []);
 
   return (
@@ -655,6 +658,8 @@ export const UserContextProvider = ({ children }) => {
         claimLoyalityTokens,
         formatTimestamp,
         referFriend,
+        owner,
+        registerBrand
       }}
     >
       {children}
