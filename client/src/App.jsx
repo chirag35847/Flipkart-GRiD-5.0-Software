@@ -26,6 +26,8 @@ import RegisterUser from "./components/RegisterUser";
 import DashBoard from "./components/UserDash/DashBoard";
 import { useUserDataContext } from "./contexts/UserContextProvider";
 import NotFound from "./components/404/NotFound";
+import RegisterBrand from "./components/RegisterBrand/RegisterBrand";
+
 function App() {
   const { verified } = useUserDataContext();
   return (
@@ -74,6 +76,7 @@ function App() {
         <Route exact path="/checkout" element={<CheckoutModal />} />
         <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/register-user" element={<RegisterUser />} />
+        <Route exact path="/addBrand" element={<RegisterBrand />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
