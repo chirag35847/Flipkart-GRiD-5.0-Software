@@ -13,6 +13,7 @@ const AdminDashboard = () => {
     brandFullDetails,
     brandDetails,
     formatAddress,
+    brandlist,
   } = useUserDataContext();
   useEffect(() => {
     (async () => {
@@ -40,10 +41,7 @@ const AdminDashboard = () => {
   return (
     <>
       <BackGradients page="admin" />
-      <div
-        className="flex flex-col lg:flex-row"
- 
-      >
+      <div className="flex flex-col lg:flex-row">
         <div className="px-4 py-2 bg-black lg:w-1/4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +86,7 @@ const AdminDashboard = () => {
               </li>
               <li className="mb-2 bg-gray-800 rounded shadow">
                 <a
-             
-                href="/admin-dashboard"
+                  href="/admin-dashboard"
                   className="inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
                   <svg
@@ -108,10 +105,7 @@ const AdminDashboard = () => {
                 </a>
               </li>
               <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
-                <a
-                  
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed"
-                >
+                <a className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="inline-block w-6 h-6 mr-2 -mt-2"
@@ -126,14 +120,11 @@ const AdminDashboard = () => {
                       d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     />
                   </svg>
-                  Reports
+                  Brand-List
                 </a>
               </li>
               <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
-                <a
-                 
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed"
-                >
+                <a className="inline-block w-full h-full px-3 py-2 font-bold text-white  cursor-not-allowed">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="inline-block w-6 h-6 mr-2 -mt-2"
@@ -411,88 +402,89 @@ const AdminDashboard = () => {
                     <thead>
                       <tr>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                          Name
+                          Brand Name
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                          Email
+                          Brand Symbol
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                          Status
+                          Percentage
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                          Edit
+                          Base Amount
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                          Delete
+                          Token Address
+                        </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Owner Address
                         </th>
                       </tr>
                     </thead>
 
                     <tbody className="bg-white">
-                      <tr>
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 w-10 h-10">
-                              <img
-                                className="w-10 h-10 rounded-full"
-                                src="https://source.unsplash.com/user/erondu"
-                                alt="admin dashboard ui"
-                              />
-                            </div>
-
-                            <div className="ml-4">
-                              <div className="text-sm font-medium leading-5 text-gray-900">
-                                John Doe
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <div className="text-sm leading-5 text-gray-500">
-                            john@example.com
-                          </div>
-                        </td>
-
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                          <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                            Active
-                          </span>
-                        </td>
-
-                        <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-blue-400"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                            />
-                          </svg>
-                        </td>
-                        <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-red-400"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        </td>
-                      </tr>
+                      {brandlist
+                        ? brandlist.map((brand) => {
+                            return (
+                              <tr>
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        {brand?.name}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        {brand?.symbol}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        {brand?.tokenPercentage} %
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        $ {brand?.basePrice}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        {formatAddress(brand?.brandAddress?brand?.brandAddress : "")}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex items-center">
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium leading-5 text-gray-900">
+                                        {formatAddress(brand?.brandOwner?brand?.brandOwner:"")}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        : null}
                     </tbody>
                   </table>
                 </div>

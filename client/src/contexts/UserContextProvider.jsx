@@ -30,6 +30,7 @@ export const UserContextProvider = ({ children }) => {
   const [brandFullDetails, setBrandFullDetails] = useState({});
   const [festival, setFestival] = useState(null);
   const [owner,setOwner] = useState(false);
+  const [brandlist,setBrandlist] = useState([]);
   const festivalDates = {
     "2023-01-01": "New Year's Day",
     "2023-02-14": "Valentine's Day",
@@ -266,6 +267,22 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
+  const listBrands= async()=>{
+    try {
+      let contract = await getContractInstance(EcommerceAddress,EcommerceAbi);
+      let _brandid = await contract.brandID();
+      _brandid= +_brandid.toString();
+      let brandList =[];
+      for(let i=1 ;i<=_brandid;i++){
+        let detail = await brandDetails(i);
+        brandList.push(detail);
+      }
+      setBrandlist(brandList);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async function registerUser() {
     let id = toast.loading("⏳ Register User... ", {
       theme: "dark",
@@ -626,7 +643,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     if (!signer) return;
     getUserFullDteails();
-    // getReferAddresses();
+    listBrands();
   }, [signer, address]);
 
   useEffect(() => {
@@ -659,7 +676,8 @@ export const UserContextProvider = ({ children }) => {
         formatTimestamp,
         referFriend,
         owner,
-        registerBrand
+        registerBrand,
+        brandlist
       }}
     >
       {children}
