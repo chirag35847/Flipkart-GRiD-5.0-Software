@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Information from "./Information";
 import Token from "./Token";
 import Transactions from "./Transactions";
+import Referral from "./Referral";
 
 const DashBoard = () => {
   const [selectedButton, setSelectedButton] = useState("dash");
@@ -108,6 +109,32 @@ const DashBoard = () => {
               </li>
               <li
                 className={`${
+                  selectedButton == "refer" ? selectedCss : unSelectedCss
+                }`}
+              >
+                <a
+                  onClick={() => setSelectedButton("refer")}
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  Refferals
+                </a>
+              </li>
+              <li
+                className={`${
                   selectedButton == "transactions" ? selectedCss : unSelectedCss
                 }`}
               >
@@ -181,16 +208,16 @@ const DashBoard = () => {
                   ? " Portfolio"
                   : selectedButton == "token"
                   ? "Brand Token Portfolio"
-                  : "Transaction History"}
+                  : selectedButton == 'transactions'?"Transaction History":"Refferals"}
               </div>
               <ScrollArea h={selectedButton=="transactions" ? "100vh" : "85vh"}  w={ selectedButton=="transactions" ? "70vw" : "50vw"} className="">
                 {selectedButton == "dash" ? (
                   <Information></Information>
                 ) : selectedButton == "token" ? (
                   <Token></Token>
-                ) : (
+                ) : selectedButton == 'transactions'?(
                   <Transactions></Transactions>
-                )}
+                ) : <Referral></Referral>}
               </ScrollArea>
             </div>
           </div>
