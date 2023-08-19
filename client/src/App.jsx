@@ -16,7 +16,6 @@ import { Routes, Route } from "react-router-dom";
 import Authscreen from "./components/Authscreen";
 
 import MarketPlace from "./components/MarketPlace";
-import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
 import ProductDetails from "./components/ProductDetails";
 import CheckoutModal from "./components/CheckoutModal";
@@ -67,7 +66,6 @@ function App() {
         />
 
         <Route exact path="/marketplace" element={<MarketPlace />} />
-        <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         {verified ? (
           <Route exact path="/user-dashboard" element={<DashBoard />} />
