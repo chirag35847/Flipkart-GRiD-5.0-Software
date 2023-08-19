@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-
 const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const isMarketplacePage = location.pathname === "/marketplace"; 
-  const {verified} =  useUserDataContext();
+  const isMarketplacePage = location.pathname === "/marketplace";
+  const { verified } = useUserDataContext();
   return (
     <>
       <div className="z-20 mobile:px-10 lg:px-[10vw] lg:text-[18px] lg:h-[80px] mobile:h-[70px] w-[100vw] flex items-center justify-between font-normal shadow-md fixed nav-light txt-light">
@@ -49,11 +48,17 @@ const NavBar = () => {
                 FAQs
               </a>
             </li>
-            {verified ? <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
-              <a href="/user-dashboard" style={{ fontSize: 15 }}>
-                User Dashboard
-              </a>
-            </li>:null}
+            {verified ? (
+              <li className="list-none inline-block mx-2 font-medium  border-blue-600 cursor-pointer p-2 transition-all">
+                <Link to="/user-dashboard">
+                  <img
+                    className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                    src="https://img.freepik.com/free-icon/user_318-159711.jpg"
+                    alt="Bordered avatar"
+                  />
+                </Link>
+              </li>
+            ) : null}
           </ul>
         )}
         {!isMarketplacePage && (
@@ -68,7 +73,7 @@ const NavBar = () => {
       </div>
 
       {toggle && isHomePage && (
-        <div className="fixed sm:invisible top-[10.5%] divide-y divide-gray-100 nav-light txt-light shadow w-full">
+        <div className="fixed sm:invisible top-[10.5%] divide-y divide-gray-100  txt-light shadow w-full">
           {/* Mobile menu */}
           <ul className="py-2 text-sm" onClick={() => setToggle(false)}>
             <li>
@@ -111,6 +116,17 @@ const NavBar = () => {
                 FAQs
               </a>
             </li>
+            {verified ? (
+              <li className="list-none inline-block mx-2 font-medium  border-blue-600 cursor-pointer p-2 transition-all">
+                <Link to="/user-dashboard">
+                  <img
+                    className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                    src="https://img.freepik.com/free-icon/user_318-159711.jpg"
+                    alt="Bordered avatar"
+                  />
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
       )}
