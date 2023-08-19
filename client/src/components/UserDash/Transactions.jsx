@@ -11,8 +11,7 @@ const Transactions = () => {
         productID: +item["productID"].toString(),
         timestamp: +item["timestamp"].toString(),
         detail: products.filter(
-          (singleProduct) =>
-            singleProduct.id == +item["productID"].toString()
+          (singleProduct) => singleProduct.id == +item["productID"].toString()
         ),
       };
     });
@@ -72,7 +71,9 @@ const Transactions = () => {
                         </td>
 
                         <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm text-center">
-                          <a href="/">View</a>
+                          <a target="_blank" href="https://mumbai.polygonscan.com/address/0x0F2007Be450C0FD6c9F965771CB6d12Ae1b0e61F">
+                            View
+                          </a>
                         </td>
                       </tr>
                     );
