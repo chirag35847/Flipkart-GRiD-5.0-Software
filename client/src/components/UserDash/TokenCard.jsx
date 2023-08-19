@@ -30,7 +30,15 @@ const TokenCard = ({ title, value, brandID }) => {
       </div>
       <Space w={"2vw"} />
       <div className="absolute flex flex-row m-auto justify-end top-[2vh] right-[1vw]">
-        <Button onClick={claimingTokens} className="bg-[#4f46e5]">Redeem</Button>
+        {value == 0 ? (
+          <Button onClick={claimingTokens} disabled className="bg-[#4f46e5] text-white">
+            No Redeem
+          </Button>
+        ) : (
+          <Button onClick={claimingTokens} className="bg-[#4f46e5]">
+            Redeem
+          </Button>
+        )}
       </div>
       <div>
         <div className="flex flex-col">

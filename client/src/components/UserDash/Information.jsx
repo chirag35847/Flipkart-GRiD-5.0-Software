@@ -16,8 +16,8 @@ const Information = () => {
       ]}
     >
       <InformationCard
-        title={"Total Ether Spent"}
-        value={numeral(user?.totalEtherSpent).format("0.0a")}
+        title={"Total Dollar Spent"}
+        value={"$ " + numeral(user?.totalEtherSpent).format("0.0a")}
       />
       <InformationCard
         title={"Total Token Rewards"}

@@ -30,7 +30,7 @@ const DashBoard = () => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-          <div className="hidden lg:block mt-10">
+          <div className="hidden lg:block mt-10 cursor-pointer">
             <div className="my-2 mb-6">
               <h1 className="text-2xl font-bold text-white">User Dashboard</h1>
             </div>

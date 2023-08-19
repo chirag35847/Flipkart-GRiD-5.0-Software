@@ -56,6 +56,44 @@ export const UserContextProvider = ({ children }) => {
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp * 1000);
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    // Add leading zero for single-digit numbers
+    const formattedMonth = month.padStart(2, "0");
+    const formattedDay = day.toString().padStart(2, "0");
+    const formattedHours = hours.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = seconds.toString().padStart(2, "0");
+
+    const formattedDate = `${formattedMonth} ${formattedDay}, ${year}`;
+    const formattedTime = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+
+    return `${formattedDate} ${formattedTime}`;
+  }
   const getContractInstance = async (contractAddress, contractAbi) => {
     try {
       let contractInstance = new ethers.Contract(
@@ -380,7 +418,7 @@ export const UserContextProvider = ({ children }) => {
       );
       await approveTx.wait(2);
     }
-    if (_price > brand?.basePrice) {
+    if (_price >= brand?.basePrice) {
       console.log("yesGot", _price, brand?.basePrice);
       let percentage = brand?.tokenPercentage;
       tokenReward = Math.round((_price * percentage) / 1000);
@@ -427,7 +465,8 @@ export const UserContextProvider = ({ children }) => {
       icon: "✅",
       autoClose: true,
     });
-    window.location.href = "/dashboard";
+    await sleep(3000);
+    window.location.href = "/user-dashboard";
     try {
     } catch (error) {
       console.log(error);
@@ -435,7 +474,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   const claimLoyalityTokens = async () => {
-    let id = toast.loading("⏳ Claiming tokens... ", {
+    let id = toast.loading("⏳ Claiming Loyality tokens... ", {
       theme: "dark",
     });
     const contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
@@ -454,6 +493,8 @@ export const UserContextProvider = ({ children }) => {
         icon: "✅",
         autoClose: true,
       });
+      await sleep(1000);
+      window.location.href = "/dashboard";
     } catch (error) {
       toast.update(id, {
         render: "Claimed Failed !",
@@ -511,11 +552,12 @@ export const UserContextProvider = ({ children }) => {
         "https://snehagupta1907.github.io/data/product.json"
       );
       let data = await res.json();
-      console.log(data);
       setProducts(data);
+      let contract= await getContractInstance(EcommerceAddress,EcommerceAbi);
+      let userExist = await contract.isUser(address);
+      setVerified(userExist);
     })();
     getUserFullDteails();
-    brandDetails(1);
   }, [signer, address]);
 
   // useEffect(() => {
@@ -544,7 +586,9 @@ export const UserContextProvider = ({ children }) => {
         formatAddress,
         purchaseProduct,
         user,
-        claimBrandTokens
+        claimBrandTokens,
+        claimLoyalityTokens,
+        formatTimestamp
       }}
     >
       {children}

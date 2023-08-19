@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useUserDataContext } from "../contexts/UserContextProvider";
 
 const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isMarketplacePage = location.pathname === "/marketplace"; 
-
+  const {verified} =  useUserDataContext();
   return (
     <>
       <div className="z-20 mobile:px-10 lg:px-[10vw] lg:text-[18px] lg:h-[80px] mobile:h-[70px] w-[100vw] flex items-center justify-between font-normal shadow-md fixed nav-light txt-light">
@@ -48,6 +49,11 @@ const NavBar = () => {
                 FAQs
               </a>
             </li>
+            {verified ? <li className="list-none inline-block mx-2 font-medium hover:border-b-2 border-blue-600 cursor-pointer p-2 transition-all">
+              <a href="/user-dashboard" style={{ fontSize: 15 }}>
+                User Dashboard
+              </a>
+            </li>:null}
           </ul>
         )}
         {!isMarketplacePage && (

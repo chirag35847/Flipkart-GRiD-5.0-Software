@@ -69,11 +69,11 @@ function App() {
 
         <Route exact path="/marketplace" element={<MarketPlace />} />
         <Route exact path="/brandsDashBoard" element={<BrandsDashboard />} />
-        <Route exact path="/dashboard" element={<DashBoard />} />
+        <Route exact path="/user-dashboard" element={<DashBoard />} />
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route exact path="/checkout" element={<CheckoutModal />} />
-        <Route exact path="/payment" element={<Payment />} />
+        <Route exact path="/payment" element={<Payment/>} />
         <Route exact path="/register-user" element={<RegisterUser />} />
       </Routes>
     </>
