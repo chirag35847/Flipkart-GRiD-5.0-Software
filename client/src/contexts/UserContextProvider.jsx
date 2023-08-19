@@ -476,6 +476,65 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
+  const acceptReferral = async () => {
+    try {
+      let id = toast.loading(" Accepting Refferral ... ", {
+        theme: "dark",
+      });
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+      let tx = await contract.acceptReferral();
+      await tx.wait(1);
+      toast.update(id, {
+        render: "Refferal Done , You got some Rewards !",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const referFriend = async (referAddress) => {
+    try {
+      let id = toast.loading(" Sending Refferel ", {
+        theme: "dark",
+      });
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+      let tx = await contract.refer(referAddress);
+      await tx.wait(2);
+      toast.update(id, {
+        render: " Reffered Done, Ask friend to accept  !!!",
+        type: "success",
+        isLoading: false,
+        theme: "dark",
+        icon: "✅",
+        autoClose: true,
+      });
+    } catch (error) {
+      toast.update(id, {
+        render: " Reffered Failed !!!",
+        type: "error",
+        isLoading: false,
+        theme: "dark",
+        icon: "❌",
+        autoClose: true,
+      });
+      console.log(error);
+    }
+  };
+
+  const getReferAddresses = async () => {
+    try {
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
+      let res = await contract.referrersToListOfReferees(address);
+      console.log("Addresses", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const claimLoyalityTokens = async () => {
     let id = toast.loading("⏳ Claiming Loyality tokens... ", {
       theme: "dark",
@@ -563,6 +622,7 @@ export const UserContextProvider = ({ children }) => {
       setVerified(userExist);
     })();
     getUserFullDteails();
+    getReferAddresses();
   }, [signer, address]);
 
   // useEffect(() => {
@@ -594,6 +654,7 @@ export const UserContextProvider = ({ children }) => {
         claimBrandTokens,
         claimLoyalityTokens,
         formatTimestamp,
+        referFriend,
       }}
     >
       {children}
