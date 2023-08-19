@@ -4,22 +4,23 @@
 </p>
 
 ## About The Project
-This is team Forgers project on Flipkart Grid 5.0, here we have build an application where NFT's are used to make transactions, users are given loyality points and rewards based on their activity, users can also refer another user. We have handcreafted the UI for easy readablity and access of data. The features of our product are 
-- Brand registeration and defination of minimum purchase amount and reward
-- User is provided rewards on first signup and product purchase exceeding minimum anount
-- Admin dashboard provides the information of Brands on the platform
-- Brand Dashboard enables the brand to make changes into their schemes
-- User Dashboard gives a comprehensive list of various balances, referrals, past transactions and various tokens earned
-- User can redeem their tokens at any point in time
+This is the team Forgers project on Flipkart Grid 5.0, here we have built an application where NFTs are used to make transactions, users are given loyalty points and rewards based on their activity, and users can also refer another user. We have handcrafted the UI for easy readability and access to data. 
+## The features of our product are 
+- (✓) Brand registration and definition of the minimum purchase amount and reward 
+- (✓) User is provided rewards on the first signup and product purchase exceeding the minimum amount
+- (✓) Admin dashboard provides the information of Brands on the platform. 
+- (✓) Brand Dashboard enables the brand to change its schemes. Brand Owner can Set base price and token Distribution percentage.
+- (✓) User Dashboard gives a comprehensive list of various balances, referrals, past transactions, and various tokens earned
+- (✓) User can redeem their tokens anytime / Burn Tokens Implementation.
 
 ## Commands for running the project
-Navigate to client folder
-- ```yarn install```
+Navigate to the client folder
+- ``` yarn install```
 - ```yarn run dev```
 After this you are good to go, You can start using the product after this
 
 ## Team Members
-- Neeraj Choubisa
+- Neeraj Choubisa (Team Lead)
 - Sneha Gupta
 - Chirag Mittal
 
