@@ -14,7 +14,7 @@ const RegisterBrand = () => {
         <>
             <BackGradients />
             <div className='flex flex-col h-screen justify-center items-center bg-black'>
-                <div className="rounded-2xl w-[75%] text-[#1A2421] bg-black [ p-8 md:p-10 lg:p-10 ] border">
+                <div className="rounded-2xl w-[50%] text-[#1A2421] bg-black [ p-8 md:p-10 lg:p-10 ] border">
                     <p className="mb-6 [ text-sm text-[#1A2421]/70 text-opacity-50 ] text-blue-300">Register A New brand</p>
                     <label for="brandName" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
                         <input value={brandName} onChange={(e)=>{setBrandName(e.target.value)}} className="form-input border block w-full rounded-lg leading-none focus:outline-none placeholder-white/50 [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-12 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#fff] focus:text-white ]" type="text" name="brandName" id="brandName" placeholder="Brand Name"/>
