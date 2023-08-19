@@ -6,6 +6,7 @@ import Information from "./Information";
 import Token from "./Token";
 import Transactions from "./Transactions";
 import Referral from "./Referral";
+import {IconShare3,IconHistory,IconCoin, IconGraph} from "@tabler/icons-react";
 
 const DashBoard = () => {
   const [selectedButton, setSelectedButton] = useState("dash");
@@ -64,20 +65,9 @@ const DashBoard = () => {
               >
                 <a
                   onClick={() => setSelectedButton("dash")}
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white"
+                  className="flex inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="inline-block w-6 h-6 mr-2 -mt-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <IconGraph className="mr-2"/>
                   Dashboard
                 </a>
               </li>
@@ -88,22 +78,9 @@ const DashBoard = () => {
               >
                 <a
                   onClick={() => setSelectedButton("token")}
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white "
+                  className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="inline-block w-6 h-6 mr-2 -mt-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
+                  <IconCoin className="mr-2"/>
                   Tokens
                 </a>
               </li>
@@ -114,22 +91,9 @@ const DashBoard = () => {
               >
                 <a
                   onClick={() => setSelectedButton("refer")}
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white "
+                  className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="inline-block w-6 h-6 mr-2 -mt-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <IconShare3 className="mr-2"/>
                   Refferals
                 </a>
               </li>
@@ -140,22 +104,9 @@ const DashBoard = () => {
               >
                 <a
                   onClick={() => setSelectedButton("transactions")}
-                  className="inline-block w-full h-full px-3 py-2 font-bold text-white "
+                  className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="inline-block w-6 h-6 mr-2 -mt-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <IconHistory className="mr-2"/>
                   Transactions
                 </a>
               </li>
