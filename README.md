@@ -20,7 +20,7 @@ Navigate to the client folder
 After this you are good to go, You can start using the product after this
 
 ## Team Members
-- Neeraj Choubisa
+- Neeraj Choubisa (Team Lead)
 - Sneha Gupta
 - Chirag Mittal
 
