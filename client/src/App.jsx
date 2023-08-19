@@ -28,6 +28,7 @@ import AdminDashboard from "./components/AdminDashboard";
 
 import RegisterUser from "./components/RegisterUser";
 import DashBoard from "./components/UserDash/DashBoard";
+import NotFound from "./components/404/NotFound";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
         <Route exact path="/checkout" element={<CheckoutModal />} />
         <Route exact path="/payment" element={<Payment/>} />
         <Route exact path="/register-user" element={<RegisterUser />} />
+        <Route exact path="/notFound" element={<NotFound />} />
       </Routes>
     </>
   );
