@@ -28,6 +28,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import RegisterUser from "./components/RegisterUser";
 import DashBoard from "./components/UserDash/DashBoard";
 import NotFound from "./components/404/NotFound";
+import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
 
         <Route exact path="/marketplace" element={<MarketPlace />} />
         <Route exact path="/user-dashboard" element={<DashBoard />} />
+        <Route exact path="/brandDashboard" element={<BrandsDashboard/>}/>
         <Route exact path="/adminpage" element={<AdminDashboard />} />
         <Route path="/marketplace/:productId" element={<ProductDetails />} />
         <Route exact path="/checkout" element={<CheckoutModal />} />

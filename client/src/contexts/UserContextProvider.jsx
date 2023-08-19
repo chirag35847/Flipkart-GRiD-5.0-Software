@@ -562,16 +562,16 @@ export const UserContextProvider = ({ children }) => {
     getUserFullDteails();
   }, [signer, address]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let res = await fetch("https://snehagupta1907.github.io/data/product.json");
-  //     let data = await res.json();
-  //     console.log(data);
-  //     setProducts(data);
-  //   })();
-  //   getUserFullDteails();
-  //   brandDetails(1);
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      let res = await fetch("https://snehagupta1907.github.io/data/product.json");
+      let data = await res.json();
+      console.log(data);
+      setProducts(data);
+    })();
+    getUserFullDteails();
+    brandDetails(1);
+  }, []);
 
   return (
     <UserDataContext.Provider

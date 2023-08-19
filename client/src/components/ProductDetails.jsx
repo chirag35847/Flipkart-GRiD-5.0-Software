@@ -6,6 +6,7 @@ import CheckoutModal from "./CheckoutModal";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BsFillCircleFill } from "react-icons/bs";
 import { MdArrowBack } from "react-icons/md";
+import BackGradients from "./BackGradients";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -40,7 +41,8 @@ const ProductDetails = () => {
 
   return (
     <>
-    <div className="bg-gradient-to-br from-black to-gray-600 min-h-fit text-white">
+    <BackGradients/>
+    <div className="bg-gradient-to-br from-black to-gray-900 min-h-fit text-white">
       <NavBar />   
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 py-8 md:py-16">
