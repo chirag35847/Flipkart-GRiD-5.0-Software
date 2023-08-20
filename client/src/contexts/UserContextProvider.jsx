@@ -262,6 +262,13 @@ export const UserContextProvider = ({ children }) => {
         icon: "✅",
         autoClose: true,
       });
+   
+      setConfetti(true);
+      setTimeout(() => {
+        setConfetti(false);
+      }, 5000);
+      await sleep(3000);
+      window.location.href = "/adminpage";
     } catch (error) {
       console.error("Error registering brand:", error);
     }

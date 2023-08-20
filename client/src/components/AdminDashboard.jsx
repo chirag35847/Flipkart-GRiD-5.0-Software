@@ -6,7 +6,6 @@ import { useUserDataContext } from "../contexts/UserContextProvider";
 const AdminDashboard = () => {
   const [percentage, setPercentage] = useState(0);
   const [baseprice, setBasePrice] = useState(0);
-  const { address } = useAccount();
   const {
     changePercentage,
     changeBasePrice,
@@ -15,10 +14,13 @@ const AdminDashboard = () => {
     formatAddress,
     brandlist,
   } = useUserDataContext();
+  const [brandid, setBrandId] = useState(1);
+  const changeBrand = async (id) => {
+    await brandDetails(id);
+  };
   useEffect(() => {
     (async () => {
-      await brandDetails(1);
-      console.log(brandFullDetails);
+      await brandDetails(brandid);
     })();
   }, []);
 
@@ -27,7 +29,7 @@ const AdminDashboard = () => {
       alert("Please enter percentage");
       return;
     }
-    await changePercentage(percentage, 1);
+    await changePercentage(percentage, brandid);
     setPercentage(0);
   };
   const changingBasePrice = async () => {
@@ -35,7 +37,7 @@ const AdminDashboard = () => {
       alert("Please enter percentage");
       return;
     }
-    await changeBasePrice(baseprice, 1);
+    await changeBasePrice(baseprice, brandid);
     setBasePrice(0);
   };
   return (
@@ -140,6 +142,28 @@ const AdminDashboard = () => {
                     />
                   </svg>
                   Inbox
+                </a>
+              </li>
+              <li className="mb-2 rounded hover:shadow hover:bg-gray-800">
+                <a
+                  href="/register-brand"
+                  className="inline-block w-full h-full px-3 py-2 font-bold text-white cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="inline-block w-6 h-6 mr-2 -mt-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  Register brand
                 </a>
               </li>
             </ul>
@@ -426,7 +450,13 @@ const AdminDashboard = () => {
                       {brandlist
                         ? brandlist.map((brand) => {
                             return (
-                              <tr>
+                              <tr
+                                onClick={() => {
+                                  setBrandId(brand?.id);
+                                  changeBrand(brand?.id);
+                                }}
+                                className="cursor-pointer"
+                              >
                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <div className="flex items-center">
                                     <div className="ml-4">
@@ -467,7 +497,11 @@ const AdminDashboard = () => {
                                   <div className="flex items-center">
                                     <div className="ml-4">
                                       <div className="text-sm font-medium leading-5 text-gray-900">
-                                        {formatAddress(brand?.brandAddress?brand?.brandAddress : "")}
+                                        {formatAddress(
+                                          brand?.brandAddress
+                                            ? brand?.brandAddress
+                                            : ""
+                                        )}
                                       </div>
                                     </div>
                                   </div>
@@ -476,7 +510,11 @@ const AdminDashboard = () => {
                                   <div className="flex items-center">
                                     <div className="ml-4">
                                       <div className="text-sm font-medium leading-5 text-gray-900">
-                                        {formatAddress(brand?.brandOwner?brand?.brandOwner:"")}
+                                        {formatAddress(
+                                          brand?.brandOwner
+                                            ? brand?.brandOwner
+                                            : ""
+                                        )}
                                       </div>
                                     </div>
                                   </div>

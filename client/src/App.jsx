@@ -31,6 +31,7 @@ import RegisterBrand from "./components/RegisterBrand/RegisterBrand";
 
 import BrandsDashboard from "./components/BrandsDashboard/BrandsDashboard";
 
+
 function App() {
   const { verified, owner } = useUserDataContext();
   return (
@@ -63,6 +64,7 @@ function App() {
                 <Solutions />
                 <RoadMap />
                 <Faq />
+            
                 <Footer />
                 <BackGradients page="home" />
               </div>
@@ -82,8 +84,7 @@ function App() {
         <Route exact path="/register-user" element={<RegisterUser />} />
         {owner ? (
           <>
-            <Route exact path="/brandDashboard" element={<BrandsDashboard />} />
-            <Route exact path="/addBrand" element={<RegisterBrand />} />
+            <Route exact path="/register-brand" element={<RegisterBrand />} />
             <Route exact path="/adminpage" element={<AdminDashboard />} />
           </>
         ) : null}

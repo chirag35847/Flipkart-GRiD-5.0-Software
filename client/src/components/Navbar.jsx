@@ -7,7 +7,7 @@ const NavBar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isMarketplacePage = location.pathname === "/marketplace";
-  const { verified } = useUserDataContext();
+  const { verified,owner } = useUserDataContext();
   return (
     <>
       <div className="z-20 mobile:px-10 lg:px-[10vw] lg:text-[18px] lg:h-[80px] mobile:h-[70px] w-[100vw] flex items-center justify-between font-normal shadow-md fixed nav-light txt-light">
@@ -57,6 +57,14 @@ const NavBar = () => {
                     src="https://img.freepik.com/free-icon/user_318-159711.jpg"
                     alt="Bordered avatar"
                   />
+                </Link>
+              </li>
+            ) : null}
+
+            {owner ? (
+              <li className="list-none inline-block mx-2 font-medium  border-blue-600 cursor-pointer p-2 transition-all">
+                <Link to="/adminpage">
+                  Brand Dashboard
                 </Link>
               </li>
             ) : null}
