@@ -1,10 +1,14 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-
+import {toast} from "react-toastify";
 const CheckoutModal = ({ productDetails, closeModal }) => {
-  const {purchaseProduct} = useUserDataContext();
+  const {purchaseProduct,verified} = useUserDataContext();
   const checkOut=async()=>{
+    if(!verified){
+      window.location.href="/auth";
+      return;
+    }
     await purchaseProduct(productDetails.brandId,productDetails.id,productDetails.price);
   }
   return (

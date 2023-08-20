@@ -6,7 +6,12 @@ import Information from "./Information";
 import Token from "./Token";
 import Transactions from "./Transactions";
 import Referral from "./Referral";
-import {IconShare3,IconHistory,IconCoin, IconGraph} from "@tabler/icons-react";
+import {
+  IconShare3,
+  IconHistory,
+  IconCoin,
+  IconGraph,
+} from "@tabler/icons-react";
 
 const DashBoard = () => {
   const [selectedButton, setSelectedButton] = useState("dash");
@@ -67,7 +72,7 @@ const DashBoard = () => {
                   onClick={() => setSelectedButton("dash")}
                   className="flex inline-block w-full h-full px-3 py-2 font-bold text-white"
                 >
-                  <IconGraph className="mr-2"/>
+                  <IconGraph className="mr-2" />
                   Dashboard
                 </a>
               </li>
@@ -80,7 +85,7 @@ const DashBoard = () => {
                   onClick={() => setSelectedButton("token")}
                   className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <IconCoin className="mr-2"/>
+                  <IconCoin className="mr-2" />
                   Tokens
                 </a>
               </li>
@@ -93,7 +98,7 @@ const DashBoard = () => {
                   onClick={() => setSelectedButton("refer")}
                   className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <IconShare3 className="mr-2"/>
+                  <IconShare3 className="mr-2" />
                   Refferals
                 </a>
               </li>
@@ -106,7 +111,7 @@ const DashBoard = () => {
                   onClick={() => setSelectedButton("transactions")}
                   className="flex inline-block w-full h-full px-3 py-2 font-bold text-white "
                 >
-                  <IconHistory className="mr-2"/>
+                  <IconHistory className="mr-2" />
                   Transactions
                 </a>
               </li>
@@ -116,7 +121,11 @@ const DashBoard = () => {
         <div className="w-full px-4 py-2 bg-black lg:w-full h-full">
           <div className="flex flex-row">
             {selectedButton == "transactions" ? null : (
-              <div className="relative">
+              <a
+                className="relative cursor-pointer"
+                href="https://testnets.opensea.io/assets/mumbai/0x5696c9a0c4d846f90adcb3c270705229ab1e36e5/1"
+                target="_blank"
+              >
                 <div className="flex flex-row relative mt-[13vh] justify-between">
                   <div>
                     <div className="relative">
@@ -151,7 +160,7 @@ const DashBoard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             )}
             <div className="mt-[3vh] ml-[2vw]">
               <div className="text-[#8BE8E5] font-semibold text-[3rem] mb-[1vh]">
@@ -159,16 +168,24 @@ const DashBoard = () => {
                   ? " Portfolio"
                   : selectedButton == "token"
                   ? "Brand Token Portfolio"
-                  : selectedButton == 'transactions'?"Transaction History":"Refferals"}
+                  : selectedButton == "transactions"
+                  ? "Transaction History"
+                  : "Refferals"}
               </div>
-              <ScrollArea h={selectedButton=="transactions" ? "100vh" : "85vh"}  w={ selectedButton=="transactions" ? "70vw" : "50vw"} className="">
+              <ScrollArea
+                h={selectedButton == "transactions" ? "100vh" : "85vh"}
+                w={selectedButton == "transactions" ? "70vw" : "50vw"}
+                className=""
+              >
                 {selectedButton == "dash" ? (
                   <Information></Information>
                 ) : selectedButton == "token" ? (
                   <Token></Token>
-                ) : selectedButton == 'transactions'?(
+                ) : selectedButton == "transactions" ? (
                   <Transactions></Transactions>
-                ) : <Referral></Referral>}
+                ) : (
+                  <Referral></Referral>
+                )}
               </ScrollArea>
             </div>
           </div>
