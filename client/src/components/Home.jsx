@@ -30,7 +30,7 @@ const Home = () => {
     );
     return () => clearTimeout(intervalId);
   }, []);
-  const { verified } = useUserDataContext();
+  const { verified,festival } = useUserDataContext();
   return (
     <div
       className="flex text-center justify-center items-center flex-col pt-[120px] "
@@ -38,6 +38,10 @@ const Home = () => {
     >
       <div className="z-10 mb-60 pt-10 lg:mt-20 mobile:mt-20">
         <div className="font-bold txt-light mobile:text-[30px] lg:text-[54px] flex justify-center items-center flex-col">
+
+          {festival && (<>
+            <span className="text-blue-400 mb-4">{festival}</span>
+          </>)}
           <h1>Seamless Ecommerce Evolution :</h1>
           <TextTransition
             delay={10}

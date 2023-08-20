@@ -29,8 +29,8 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [brandFullDetails, setBrandFullDetails] = useState({});
   const [festival, setFestival] = useState(null);
-  const [owner,setOwner] = useState(false);
-  const [brandlist,setBrandlist] = useState([]);
+  const [owner, setOwner] = useState(false);
+  const [brandlist, setBrandlist] = useState([]);
   const festivalDates = {
     "2023-01-01": "New Year's Day",
     "2023-02-14": "Valentine's Day",
@@ -39,6 +39,7 @@ export const UserContextProvider = ({ children }) => {
     "2023-04-15": "Easter Sunday", // Christian Festival - This date changes every year; ensure it's correct for 2023
     "2023-05-26": "Buddha Purnima", // Buddhist Festival
     "2023-07-04": "Independence Day (USA)",
+    "2023-09-23":"Flipkart Big Billion Day",
     "2023-08-10": "Raksha Bandhan", // Hindu Festival
     "2023-08-30": "Janmashtami", // Birthday of Lord Krishna - Hindu Festival
     "2023-10-21": "Dussehra", // Hindu Festival
@@ -262,7 +263,7 @@ export const UserContextProvider = ({ children }) => {
         icon: "✅",
         autoClose: true,
       });
-   
+
       setConfetti(true);
       setTimeout(() => {
         setConfetti(false);
@@ -274,22 +275,21 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  const listBrands= async()=>{
+  const listBrands = async () => {
     try {
-      let contract = await getContractInstance(EcommerceAddress,EcommerceAbi);
+      let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
       let _brandid = await contract.brandID();
-      _brandid= +_brandid.toString();
-      let brandList =[];
-      for(let i=1 ;i<=_brandid;i++){
+      _brandid = +_brandid.toString();
+      let brandList = [];
+      for (let i = 1; i <= _brandid; i++) {
         let detail = await brandDetails(i);
         brandList.push(detail);
       }
       setBrandlist(brandList);
-      
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   async function registerUser() {
     let id = toast.loading("⏳ Register User... ", {
       theme: "dark",
@@ -426,8 +426,8 @@ export const UserContextProvider = ({ children }) => {
     const { totalBalance } = user;
     let deductAmount = 0;
     let tokenReward = 0;
-    if (totalBalance > 100) {
-      deductAmount = 100;
+    if (totalBalance > 50) {
+      deductAmount = (totalBalance * 10) / 100;
       _price = _price - deductAmount;
     }
     let _loyalityReward = 0;
@@ -638,14 +638,13 @@ export const UserContextProvider = ({ children }) => {
     (async () => {
       let contract = await getContractInstance(EcommerceAddress, EcommerceAbi);
       let _owner = await contract.owner();
-      let isOwner = _owner===address;
+      let isOwner = _owner === address;
       console.log(isOwner);
       setOwner(isOwner);
       let userExist = await contract.isUser(address);
       setVerified(userExist);
     })();
   }, [signer, address, isDisconnected]);
-
 
   useEffect(() => {
     if (!signer) return;
@@ -684,7 +683,8 @@ export const UserContextProvider = ({ children }) => {
         referFriend,
         owner,
         registerBrand,
-        brandlist
+        brandlist,
+        festival
       }}
     >
       {children}
