@@ -1,3 +1,4 @@
+
 # Flipkart-GRiD-5.0-Software
 <p align="center">
 <img width="468" alt="Screenshot 2023-08-08 at 5 52 18 PM" src="https://github.com/Kali-Decoder/Flipkart-GRiD-5.0-Software/assets/82640789/0a9adcbc-a499-4b08-b905-3060d74dba57">
@@ -25,4 +26,11 @@ After this you are good to go, You can start using the product after this
 - Chirag Mittal
 
 
-Blockchain-based: Loyalty and Rewards Program using Fungible Tokens 
+Blockchain-based: Loyalty and Rewards Program using Fungible Tokens .
+
+Deployed Contracts :- 
+<img width="949" alt="Screenshot 2023-08-19 at 12 46 30 AM" src="https://github.com/Kali-Decoder/Flipkart-GRiD-5.0-Software/assets/82640789/1b18630b-5dfb-43ff-a3c1-574fdf7e7cf3">
+
+
+
+
