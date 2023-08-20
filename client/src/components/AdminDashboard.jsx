@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+
 import BackGradients from "./BackGradients";
 import { useUserDataContext } from "../contexts/UserContextProvider";
-
+import { Pie } from "react-chartjs-2";
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+Chart.register(CategoryScale);
+import { Data } from "../constants/Data";
 const AdminDashboard = () => {
   const [percentage, setPercentage] = useState(0);
   const [baseprice, setBasePrice] = useState(0);
+  
+
   const {
     changePercentage,
     changeBasePrice,
@@ -23,7 +29,25 @@ const AdminDashboard = () => {
       await brandDetails(brandid);
     })();
   }, []);
-
+  const [chartData, setChartData] = useState({
+    labels: Data[+brandid-1].map((data) => data.year),
+    datasets: [
+      {
+        label: "Tokens",
+        data: Data[+brandid-1].map((data) => data.userGain),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "&quot;#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "white",
+        borderWidth: 1,
+      },
+    ],
+  });
+  console.log(chartData,"Helloi")
   const changingPercentage = async () => {
     if (!percentage) {
       alert("Please enter percentage");
@@ -419,6 +443,24 @@ const AdminDashboard = () => {
                 </button>
               </div>
             </div>
+            <div className="flex justify-center items-center mt-10">
+              <div className="chart-container ">
+                <Pie
+                  data={chartData}
+                  key={+brandid-1}
+                  options={{
+                    plugins: {
+                      title: {
+                        display: true,
+                        text: "TOKONOMICS FOR BRANDS TOKEN DISTRIBUTION",
+                        color: "#fff",
+                        font:"Roboto"
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
             <div className="flex flex-col mt-8">
               <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div className="inline-block min-w-full  overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
@@ -456,6 +498,7 @@ const AdminDashboard = () => {
                                   changeBrand(brand?.id);
                                 }}
                                 className="cursor-pointer"
+                                key={brand?.id}
                               >
                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <div className="flex items-center">
@@ -528,6 +571,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
+           
           </div>
         </div>
       </div>

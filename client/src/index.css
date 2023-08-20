@@ -716,3 +716,7 @@ body {
   color: var(--main-color);
 }
 
+.chart-container {
+  margin-bottom: 5rem;
+  width: 40%;
+}
