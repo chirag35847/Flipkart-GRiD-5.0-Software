@@ -5,7 +5,7 @@
 </p>
 
 ## About The Project
-This is the team Forgers project on Flipkart Grid 5.0, here we have built an application where NFTs are used to make transactions, users are given loyalty points and rewards based on their activity, and users can also refer another user. We have handcrafted the UI for easy readability and access to data. 
+This is the team Forgers project on Flipkart Grid 5.0, here we have built an application where NFTs are used to make Authentication using NFT-Gating, users are given loyalty points and rewards based on their activity, and users can also refer another user. We have handcrafted the UI for easy readability and access to data. 
 ## The features of our product are 
 - (✓) Brand registration and definition of the minimum purchase amount and reward 
 - (✓) User is provided rewards on the first signup and product purchase exceeding the minimum amount
